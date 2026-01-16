@@ -139,5 +139,10 @@ Through the mist, an old traveler sits by a small, sputtering campfire a few yar
 He finally turns to look at you, his eyes milky with age but sharp with curiosity. He gestures to a tattered scroll lying near your hand.
 
 "That parchment there... it has a seal I haven't seen in fifty years. I can't read the script, but I assume it belongs to you.""")
+    choice_1 = input("""What Would you like to do? \n
+    1. Ask the old man about the scroll. \n
+    2. Inquire about your current location and situation. \n
+    3.Leave for the woods /n""")
+
 if __name__ == "__main__":   
     main()
