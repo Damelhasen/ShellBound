@@ -16,7 +16,7 @@ Player_AC = 0
 Dexterity = 0
 
 Classes = {"Ranger","Fighter","Wizard"}
-def intro()  :
+def intro():
     ART = ("""                                                     
                                                         
                         ..=##=..                      
@@ -66,7 +66,13 @@ def clear_screen():
 def roll_dice(sides:int,modifier:int) :
     return random.randint(1,sides) + modifier 
 
-def Player_Attack(attcker_name:str, attack_modifier:int, defender_ac:int, damage_roll:int) :
+def typewriter(text):
+    for char in text:
+        print(char, end='')
+        time.sleep(0.05)
+    print()
+
+def Player_Attack(attcker_name:str, attack_modifier:int, defender_ac:int, damage_roll:int):
     attacK_roll = roll_dice(20,attack_modifier) 
     if attacK_roll >= defender_ac : 
         Player_Health = Player_Health - damage_roll
@@ -77,7 +83,7 @@ def Player_Attack(attcker_name:str, attack_modifier:int, defender_ac:int, damage
     else : 
         print(f"{attcker_name} misses {Player_Health}!")
 
-def player_defend(attcker_name:str, attack_modifier:int, defender_ac:int, damage_roll:int) :
+def player_defend(attcker_name:str, attack_modifier:int, defender_ac:int, damage_roll:int):
     attacK_roll = roll_dice(20,attack_modifier) 
     if attacK_roll >= defender_ac : 
     
@@ -126,7 +132,8 @@ def main() :
     
     print(f"Welcome, {Player_Name} the {Player_Class}!")
     print(f"Health: {Player_Health}, Attack Modifier: {Attack_Modifier}, Armor Class: {Player_AC}, Dexterity: {Dexterity}")
-    print ("""The rain is the first thing you feel—cold, relentless, and smelling of ancient pine.
+    clear_screen()
+    typewriter("""The rain is the first thing you feel—cold, relentless, and smelling of ancient pine.
 
 You are lying on a bed of damp ferns in the heart of the Whispering Woods. Above, the canopy is so thick that the midday sun is reduced to mere threads of grey light. Your head throbs with the rhythm of a war drum, and your memories are shrouded in a thick, magical fog. The last thing you remember was a flash of violet light and the sound of breaking glass.
 
@@ -142,7 +149,7 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
     choice_1 = input("""What Would you like to do? \n
     1. Ask the old man about the scroll. \n
     2. Inquire about your current location and situation. \n
-    3.Leave for the woods /n""")
+    3.Leave for the woods \n""")
 
 if __name__ == "__main__":   
     main()
