@@ -9,7 +9,7 @@ import os
 from colorama import Fore, Style
 
 Player_Name = ""
-Player_Class = ""
+Player_Class = 0
 Player_Health = 0
 Attack_Modifier = 0
 Player_AC = 0
@@ -93,37 +93,39 @@ def main() :
     
     Player_Name = input("Enter your character's name: ")
     clear_screen()
-    Player_Class = input(f"Enter your character's class \n"
-         f"{Fore.GREEN}1. Ranger{Style.RESET_ALL}\n"
-         f"{Fore.RED}2. Fighter{Style.RESET_ALL}\n"
-         f"{Fore.BLUE}3. Wizard{Style.RESET_ALL}\n")
-    if Player_Class not in Classes:
-        print("Invalid class. Please choose from:\n" 
-        f"{Fore.GREEN}1. Ranger{Style.RESET_ALL} \n" \
-        f"{Fore.RED}2. Fighter{Style.RESET_ALL} \n" \
-        f"{Fore.MAGENTA}3. Wizard{Style.RESET_ALL}")
-        return
-    if Player_Class == "1":
-        Player_Health = 10
-        Attack_Modifier = 2
-        Player_AC = 14
-        Dexterity = 3
-        Player_Class = "Ranger"
-    elif Player_Class == "2":
-        Player_Health = 12
-        Attack_Modifier = 3
-        Player_AC = 16
-        Dexterity = 2
-        Player_Class = "Fighter"
-    elif Player_Class == "3":
-        Player_Health = 12
-        Attack_Modifier = 3
-        Player_AC = 16
-        Dexterity = 2
-        Player_Class = "Wizard"
-
-print(f"Welcome, {Player_Name} the {Player_Class}!")
-print(f"Health: {Player_Health}, Attack Modifier: {Attack_Modifier}, Armor Class: {Player_AC}, Dexterity: {Dexterity}")
+    while True:
+        Player_Class = input(f"Enter your character's class \n"
+            f"{Fore.GREEN}1. Ranger{Style.RESET_ALL}\n"
+            f"{Fore.RED}2. Fighter{Style.RESET_ALL}\n"
+            f"{Fore.BLUE}3. Wizard{Style.RESET_ALL}\n")
+        if Player_Class not in {"1", "2", "3"}:
+            print("Invalid class. Please choose from:\n" 
+            f"{Fore.GREEN}1. Ranger{Style.RESET_ALL} \n" \
+            f"{Fore.RED}2. Fighter{Style.RESET_ALL} \n" \
+            f"{Fore.MAGENTA}3. Wizard{Style.RESET_ALL}")
+            continue
+        if Player_Class == "1":
+            Player_Health = 10
+            Attack_Modifier = 2
+            Player_AC = 14
+            Dexterity = 3
+            Player_Class = "Ranger"
+        elif Player_Class == "2":
+            Player_Health = 12
+            Attack_Modifier = 3
+            Player_AC = 16
+            Dexterity = 2
+            Player_Class = "Fighter"
+        elif Player_Class == "3":
+            Player_Health = 12
+            Attack_Modifier = 3
+            Player_AC = 16
+            Dexterity = 2
+            Player_Class = "Wizard"
+        break
+    
+    print(f"Welcome, {Player_Name} the {Player_Class}!")
+    print(f"Health: {Player_Health}, Attack Modifier: {Attack_Modifier}, Armor Class: {Player_AC}, Dexterity: {Dexterity}")
 
 if __name__ == "__main__":   
     main()
