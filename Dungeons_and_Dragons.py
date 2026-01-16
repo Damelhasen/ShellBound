@@ -126,6 +126,18 @@ def main() :
     
     print(f"Welcome, {Player_Name} the {Player_Class}!")
     print(f"Health: {Player_Health}, Attack Modifier: {Attack_Modifier}, Armor Class: {Player_AC}, Dexterity: {Dexterity}")
+    print ("""The rain is the first thing you feel—cold, relentless, and smelling of ancient pine.
 
+You are lying on a bed of damp ferns in the heart of the Whispering Woods. Above, the canopy is so thick that the midday sun is reduced to mere threads of grey light. Your head throbs with the rhythm of a war drum, and your memories are shrouded in a thick, magical fog. The last thing you remember was a flash of violet light and the sound of breaking glass.
+
+"Careful there," a voice calls out.
+
+Through the mist, an old traveler sits by a small, sputtering campfire a few yards away. He is sharpening a rusted dagger, the metallic shing-shing echoing through the trees.
+
+"The goblins usually pick these woods clean by sundown," the old man says without looking up. "You’re lucky I found you first. You’ve got the look of someone who’s traveled far, though your gear has seen better days."
+
+He finally turns to look at you, his eyes milky with age but sharp with curiosity. He gestures to a tattered scroll lying near your hand.
+
+"That parchment there... it has a seal I haven't seen in fifty years. I can't read the script, but I assume it belongs to you.""")
 if __name__ == "__main__":   
     main()
