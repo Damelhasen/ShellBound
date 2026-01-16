@@ -73,6 +73,7 @@ def typewriter(text):
     print()
 
 def Player_Attack(attcker_name:str, attack_modifier:int, defender_ac:int, damage_roll:int):
+
     attacK_roll = roll_dice(20,attack_modifier) 
     if attacK_roll >= defender_ac : 
         Player_Health = Player_Health - damage_roll
@@ -83,7 +84,8 @@ def Player_Attack(attcker_name:str, attack_modifier:int, defender_ac:int, damage
     else : 
         print(f"{attcker_name} misses {Player_Health}!")
 
-def player_defend(attcker_name:str, attack_modifier:int, defender_ac:int, damage_roll:int):
+def player_defend(attcker_name:str, attack_modifier:int, defender_ac:int, damage_roll:int) :
+    global Player_Health
     attacK_roll = roll_dice(20,attack_modifier) 
     if attacK_roll >= defender_ac : 
     
