@@ -8,7 +8,7 @@ import time
 import os
 from colorama import Fore, Style
 
-Player_Name = ""
+Player_Name = "john"
 Player_Class = 0
 Player_Health = 0
 Attack_Modifier = 0
