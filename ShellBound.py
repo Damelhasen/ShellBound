@@ -10,7 +10,7 @@ from colorama import Fore, Style
 # Started working
 
 
-Player_Name = "john"
+Player_Name = "John"
 Player_Class = 0
 player_hp = 0
 Attack_Modifier = 0
@@ -35,7 +35,9 @@ def death():
      exit()
 
 Classes = {"Ranger","Fighter","Wizard"}
+
 def intro():
+
     ART = ("""                                                     
                                                         
                         ..=##=..                      
@@ -187,7 +189,7 @@ def combat(player_name, player_hp, player_attack, player_ac, enemy_name, enemy_h
         display_enemy(enemy_name, enemy_hp)
         print(f"{player_name} HP: {player_hp}\n")
         
-        action = input("1. Attack\n  2. Defend\n Run away \n Choose: ").strip()
+        action = input("1. Attack\n2. Defend\n3. Run away \nChoose one: ").strip()
         
         if action == "1":
             # Player 
@@ -276,7 +278,7 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
     choice_1 = input("""What Would you like to do? \n
     1. Ask the old man about the scroll. \n
     2. Inquire about your current location and situation. \n
-    3.Leave for the woods \n""")
+    3. Leave for the woods \n""")
     if int(choice_1) != 1 and int(choice_1) != 2 and int(choice_1) != 3 :
         print("Invalid choice. Please select 1, 2, or 3.")
     if int(choice_1) == 1 :
