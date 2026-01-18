@@ -7,9 +7,11 @@ import random
 import time
 import os
 from colorama import Fore, Style
+
 # Started working
 
-
+#sounds##############
+######################
 Player_Name = "John"
 Player_Class = 0
 player_hp = 0
@@ -198,8 +200,10 @@ def combat(player_name, player_hp, player_attack, player_ac, enemy_name, enemy_h
                 damage = roll_dice(6, 0)
                 enemy_hp -= damage
                 print(f"{Fore.CYAN}[Roll: {attack_roll}] You hit for {damage} damage!{Style.RESET_ALL}")
+                time.sleep(3)
             else:
                 print(f"{Fore.YELLOW}[Roll: {attack_roll}] You miss!{Style.RESET_ALL}")
+                time.sleep(3)
         elif action == "2":
             print(f"{Fore.BLUE}You brace for impact...{Style.RESET_ALL}")
         
@@ -306,6 +310,10 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         time.sleep(3)
         clear_screen()
         typewriter("As you walk deeper into the forest, you hear a growl...")
+        
+
+
+        time.sleep(4)
         clear_screen()
         
         # Random enemy 
@@ -321,7 +329,7 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         victory = combat(Player_Name, player_hp, Attack_Modifier, Player_AC, enemy, enemy_hp, enemy_attack, enemy_ac)
         
         if victory:
-            add_item("Gold Coins", random.randint(10, 25))
+            add_item("Gold Coins", random.randint(5, 15))
             typewriter("You loot the creature and find some gold!")
         else:
            death()

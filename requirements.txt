@@ -1,1 +1,6 @@
 colorama
+playsound
+time
+os
+random
+pygame
