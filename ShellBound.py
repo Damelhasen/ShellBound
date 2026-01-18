@@ -235,7 +235,7 @@ def main() :
             f"{Fore.GREEN}1. Ranger{Style.RESET_ALL}\n"
             f"{Fore.RED}2. Fighter{Style.RESET_ALL}\n"
             f"{Fore.BLUE}3. Wizard{Style.RESET_ALL}\n")
-        if Player_Class not in {"1", "2", "3"}:
+        while Player_Class not in {"1", "2", "3"}:
             print("Invalid class. Please choose from:\n" 
             f"{Fore.GREEN}1. Ranger{Style.RESET_ALL} \n" \
             f"{Fore.RED}2. Fighter{Style.RESET_ALL} \n" \
@@ -285,7 +285,7 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
     3. Leave for the woods \n""")
     if int(choice_1) != 1 and int(choice_1) != 2 and int(choice_1) != 3 :
         print("Invalid choice. Please select 1, 2, or 3.")
-    if int(choice_1) == 1 :
+    while int(choice_1) == 1 :
         clear_screen()
         typewriter(f"""You pick up the scroll, its edges frayed and the seal cracked. "This looks important," you say, as you read it you realize its a Fire ball spell scroll """)
         scroll_choice = input(typewriter(f"""Would Like to keep it ? Y/N \n"""))
@@ -299,12 +299,20 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
             typewriter("You decide to leave the scroll behind, unsure of its significance.")
             time.sleep(4)
             clear_screen()
-    elif int(choice_1) == 2 :
+             
+            choice_1 = input("""What Would you like to do now? \n
+            2. Inquire about your current location and situation. \n
+            3. Leave for the woods \n""")
+            
+    while int(choice_1) == 2 :
         clear_screen()
         typewriter(f"""You look around, taking in the dense foliage and the towering trees. "Where am I?" you ask the old man. He sighs, "You're in the Whispering Woods, a place of both wonder and danger. As for how you got here, I can't say. But you look like you've been through quite an ordeal." """)
         time.sleep(5)
+        choice_1 = input("""What Would you like to do now? \n
+        1. Ask the old man about the scroll. \n
+        3. Leave for the woods \n""")
         clear_screen()
-    elif int(choice_1) == 3 :
+    while  int(choice_1) == 3 :
         clear_screen()
         typewriter("You decide to leave the safety of the campfire and venture into the woods.")
         time.sleep(3)
