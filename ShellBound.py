@@ -1,5 +1,5 @@
 
-""" Author : Johan Sheby 
+""" Authors : Johan Sheby , Chriss John Francis , Ayham Al-Dibeh
     Date : 11-01-2026
  A simple Adventure game in terminal"""
 # chriss 2:10PM
@@ -303,7 +303,7 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
             choice_1 = input("""What Would you like to do now? \n
             2. Inquire about your current location and situation. \n
             3. Leave for the woods \n""")
-            
+
     while int(choice_1) == 2 :
         clear_screen()
         typewriter(f"""You look around, taking in the dense foliage and the towering trees. "Where am I?" you ask the old man. He sighs, "You're in the Whispering Woods, a place of both wonder and danger. As for how you got here, I can't say. But you look like you've been through quite an ordeal." """)
