@@ -2,7 +2,7 @@
 """ Authors : Johan Sheby , Chriss John Francis , Ayham Al-Dibeh
     Date : 11-01-2026
  A simple Roeplaying Adventure game in The terminal"""
-# chriss 2:10PM
+
 import random
 import time
 import os
