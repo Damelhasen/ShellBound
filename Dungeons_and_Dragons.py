@@ -241,6 +241,7 @@ def main() :
     
     print(f"Welcome, {Player_Name} the {Player_Class}!")
     print(f"Health: {player_hp}, Attack Modifier: {Attack_Modifier}, Armor Class: {Player_AC}, Dexterity: {Dexterity}")
+    time.sleep(4)
     clear_screen()
     typewriter("""The rain is the first thing you feel—cold, relentless, and smelling of ancient pine.
 
@@ -259,26 +260,37 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
     1. Ask the old man about the scroll. \n
     2. Inquire about your current location and situation. \n
     3.Leave for the woods \n""")
-    if int(choice_1) != 1 or int(choice_1) != 2 or int(choice_1) != 3 :
+    if int(choice_1) != 1 and int(choice_1) != 2 and int(choice_1) != 3 :
         print("Invalid choice. Please select 1, 2, or 3.")
     if int(choice_1) == 1 :
+        clear_screen()
         typewriter(f"""You pick up the scroll, its edges frayed and the seal cracked. "This looks important," you say, as you read it you realize its a Fire ball spell scroll """)
-        scroll_choice = input(typewriter(f"""Would Like to keep it ? Y/N"""))
+        scroll_choice = input(typewriter(f"""Would Like to keep it ? Y/N \n"""))
+        
         if scroll_choice.upper() == "Y" : 
             typewriter("You carefully tuck the scroll into your pack, feeling a strange warmth emanating from it.")
             inventory.append({"name": "Fireball Spell Scroll", "quantity": 1})
+            time.sleep(4)
+            clear_screen()
         elif scroll_choice.upper() == "N" : 
             typewriter("You decide to leave the scroll behind, unsure of its significance.")
+            time.sleep(4)
+            clear_screen()
     elif int(choice_1) == 2 :
+        clear_screen()
         typewriter(f"""You look around, taking in the dense foliage and the towering trees. "Where am I?" you ask the old man. He sighs, "You're in the Whispering Woods, a place of both wonder and danger. As for how you got here, I can't say. But you look like you've been through quite an ordeal." """)
+        time.sleep(5)
+        clear_screen()
     elif int(choice_1) == 3 :
+        clear_screen()
         typewriter("You decide to leave the safety of the campfire and venture into the woods.")
+        time.sleep(3)
         clear_screen()
         typewriter("As you walk deeper into the forest, you hear a growl...")
         clear_screen()
         
-        # Random enemy encounter
-        import random
+        # Random enemy 
+       
         enemy = random.choice(["Goblin", "Orc"])
         enemy_hp = 15 if enemy == "Goblin" else 20
         enemy_attack = 1 if enemy == "Goblin" else 2
@@ -308,7 +320,8 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
   jgs    `--------` \n
     {Player_Name} the {Player_Class} has fallen in the Whispering Woods.
                        """)
-            return
-
+            
+    print("Your current inventory:\n")
+    display_inventory()
 if __name__ == "__main__":   
     main()
