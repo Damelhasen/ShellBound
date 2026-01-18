@@ -2,7 +2,7 @@
 """ Author : Johan Sheby 
     Date : 11-01-2026
  A simple Adventure game in terminal"""
-# chriss 2:202PM
+# chriss 2:10PM
 import random
 import time
 import os
@@ -187,7 +187,7 @@ def combat(player_name, player_hp, player_attack, player_ac, enemy_name, enemy_h
         display_enemy(enemy_name, enemy_hp)
         print(f"{player_name} HP: {player_hp}\n")
         
-        action = input("1. Attack  2. Defend\n Run away \n Choose: ").strip()
+        action = input("1. Attack\n  2. Defend\n Run away \n Choose: ").strip()
         
         if action == "1":
             # Player 
