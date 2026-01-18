@@ -16,6 +16,23 @@ player_hp = 0
 Attack_Modifier = 0
 Player_AC = 0
 Dexterity = 0
+def death():
+     typewriter(f"""Game Over. Your adventure ends here... \n \
+                       ______
+        .-"      "-.
+       /            \
+      |              |
+      |,  .-.  .-.  ,|
+      | )(__/  \__)( |
+      |/     /\     \|
+      (_     ^^     _)
+       \__|IIIIII|__/
+        | \IIIIII/ |
+        \          /
+  jgs    `--------` \n
+    {Player_Name} the {Player_Class} has fallen in the Whispering Woods.
+                       """)
+     exit()
 
 Classes = {"Ranger","Fighter","Wizard"}
 def intro():
@@ -305,21 +322,8 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
             add_item("Gold Coins", random.randint(10, 25))
             typewriter("You loot the creature and find some gold!")
         else:
-            typewriter(f"""Game Over. Your adventure ends here... \n \
-                       ______
-        .-"      "-.
-       /            \
-      |              |
-      |,  .-.  .-.  ,|
-      | )(__/  \__)( |
-      |/     /\     \|
-      (_     ^^     _)
-       \__|IIIIII|__/
-        | \IIIIII/ |
-        \          /
-  jgs    `--------` \n
-    {Player_Name} the {Player_Class} has fallen in the Whispering Woods.
-                       """)
+           death()
+        
             
     print("Your current inventory:\n")
     display_inventory()
