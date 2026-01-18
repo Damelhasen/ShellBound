@@ -2,12 +2,12 @@
 """ Author : Johan Sheby 
     Date : 11-01-2026
  A simple Adventure game in terminal"""
-
+# chriss 2:202PM
 import random
 import time
 import os
 from colorama import Fore, Style
-
+# Started working
 
 
 Player_Name = "john"
@@ -29,7 +29,7 @@ def death():
        \__|IIIIII|__/
         | \IIIIII/ |
         \          /
-  jgs    `--------` \n
+         `--------` \n
     {Player_Name} the {Player_Class} has fallen in the Whispering Woods.
                        """)
      exit()
