@@ -7,12 +7,15 @@ import random
 import time
 import os
 from colorama import Fore, Style
-
-# Started working
-#testing
-#sounds
+<<<<<<< HEAD    
 
 Player_Name = "John"
+
+
+#sounds##############
+######################
+Player_Name = ""
+>>>>>>> 6c190d0608181a9cd5221d1b965e4087e19d1e2b
 Player_Class = 0
 player_hp = 0
 Attack_Modifier = 0
@@ -100,7 +103,7 @@ def roll_dice(sides:int,modifier:int) :
 def typewriter(text):
     for char in text:
         print(char, end='')
-        time.sleep(0.01)
+        time.sleep(0.00)
     print()
 
 def Player_Attack(attcker_name:str, attack_modifier:int, defender_ac:int, damage_roll:int):
@@ -208,12 +211,13 @@ def combat(player_name, player_hp, player_attack, player_ac, enemy_name, enemy_h
                 damage = roll_dice(6, 0)
                 enemy_hp -= damage
                 print(f"{Fore.CYAN}[Roll: {attack_roll}] You hit for {damage} damage!{Style.RESET_ALL}")
-                time.sleep(3)
+                time.sleep(2)
             else:
                 print(f"{Fore.YELLOW}[Roll: {attack_roll}] You miss!{Style.RESET_ALL}")
-                time.sleep(3)
+                time.sleep(2)
         elif action == "2":
             print(f"{Fore.BLUE}You brace for impact...{Style.RESET_ALL}")
+            time.sleep(2)
         
         clear_screen()
         
@@ -272,7 +276,7 @@ def main() :
     
     print(f"Welcome, {Player_Name} the {Player_Class}!")
     print(f"Health: {player_hp}, Attack Modifier: {Attack_Modifier}, Armor Class: {Player_AC}, Dexterity: {Dexterity}")
-    time.sleep(4)
+    time.sleep(3)
     clear_screen()
     typewriter("""The rain is the first thing you feel—cold, relentless, and smelling of ancient pine.
 
@@ -301,7 +305,7 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         if scroll_choice.upper() == "Y" : 
             typewriter("You carefully tuck the scroll into your pack, feeling a strange warmth emanating from it.")
             inventory.append({"name": "Fireball Spell Scroll", "quantity": 1})
-            time.sleep(4)
+            time.sleep(3)
             clear_screen()
         elif scroll_choice.upper() == "N" : 
             typewriter("You decide to leave the scroll behind, unsure of its significance.")
@@ -315,7 +319,7 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
     while int(choice_1) == 2 :
         clear_screen()
         typewriter(f"""You look around, taking in the dense foliage and the towering trees. "Where am I?" you ask the old man. He sighs, "You're in the Whispering Woods, a place of both wonder and danger. As for how you got here, I can't say. But you look like you've been through quite an ordeal." """)
-        time.sleep(5)
+        time.sleep(4)
         choice_1 = input("""What Would you like to do now? \n
         1. Ask the old man about the scroll. \n
         3. Leave for the woods \n""")
@@ -335,7 +339,7 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         # Random enemy 
        
         enemy = random.choice(["Goblin", "Orc"])
-        enemy_hp = 15 if enemy == "Goblin" else 20
+        enemy_hp = 15 if enemy == "Goblin" else 20 
         enemy_attack = 1 if enemy == "Goblin" else 2
         enemy_ac = 12 if enemy == "Goblin" else 13
         
@@ -346,12 +350,68 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         
         if victory:
             add_item("Gold Coins", random.randint(5, 15))
+            add_item("Map",1)
             typewriter("You loot the creature and find some gold!")
+            break
         else:
            death()
+           break
+
+           
+         
         
-            
-    print("Your current inventory:\n")
-    display_inventory()
+        typewriter("After your encounter, you take a moment to check your inventory.")        
+        print("Your current inventory:\n")
+        display_inventory()
+
+    typewriter("In the Goblins pocket you find a mysterious map , would you like to examine it?")
+    choice_2 = input("Y/N \n")
+    if choice_2.upper() == "Y" : 
+        typewriter("You unfold the map, its surface worn and creased. The ink has faded in places, but you can still make out a path leading to a marked location deep within the Whispering Woods. A red 'X' indicates a spot labeled 'Ancient Ruins'.")
+        time.sleep(2)
+        print(f"""+--------------------------------------------------------------------------------+
+| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |
+| ~                               THE WESTERN SEA                               ~ |
+| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |
+|                                                                                |
+|   ^^^^   ^^^^^^^^      ^^^^^^^^        ^^^^^^^^        ^^^^                    |
+|  ^^^^^^ ^ DRAGON ^    ^ STORM   ^      ^ FROST   ^    ^^^^^                   |
+| ^^^  ^^^^ MOUNTS ^^^^^^ PEAKS   ^^^^^^^^ PEAKS   ^^^^^^  ^^^                  |
+|      ||        ||          ||              ||         ||                     |
+|      ||        ||          ||              ||         ||                     |
+|  ====||========||==========||==============||=========||================     |
+|      ||        ||             RIVER OF SILVER            ||                   |
+|      ||        ||          ||              ||         ||                     |
+|                                                                                |
+|        +----------------------------+       +---------------------+           |
+|        |        ELDER FOREST         |       |    NORTHERN WOODS    |           |
+|        |  ######   ######   ######   |       |  #####  #####  #### |           |
+|        |  ######   ######   ######   |       |  #####  #####  #### |           |
+|        +----------------------------+       +---------------------+           |
+|                     |                              |                            |
+|                     |                              |                            |
+|              .-----------------.           .-----------------.                 |
+|             |     LOST RUINS     |         |  WATCHTOWER     |                |
+|             |     of Valen       |         |  OUTPOST        |                |
+|              '-----------------'           '-----------------'                |
+|                                                                                |
+|   ~~~~~~{Fore.RED}     X  {Style.RESET_ALL}       ~~~~~~                       |
+|  ~ SWAMP ~                                        ~ MARSH ~                    |
+|   ~~~~~~                                        ~~~~~~                        |
+|                                                                                |
+| :::::::::::::::::::::::::::: DESERT OF ASH ::::::::::::::::::::::::::::::::: |
+|                                                                                |
+|   [O]      [O]      [O]        [O]        [O]        [O]                       |
+|  Camp     Camp     Camp       Camp       Camp       Camp                      |
+|                                                                                |
+|                    +------+            +----------+                           |
+|                    | PORT |            |  DOCKS   |                           |
+|                    +------+            +----------+                           |
++--------------------------------------------------------------------------------+
+""")
+    elif choice_2.upper() == "N" : 
+        typewriter("You decide to keep the map folded away for now, unsure of where it might lead.")
+        time.sleep(4)
+        clear_screen()
 if __name__ == "__main__":   
     main()
