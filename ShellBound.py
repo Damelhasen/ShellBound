@@ -1,8 +1,8 @@
 
 """ Authors : Johan Sheby , Chriss John Francis , Ayham Al-Dibeh
     Date : 11-01-2026
- A simple Roeplaying Adventure game in The terminal"""
-
+ A simple Adventure game in terminal"""
+# chriss 2:10PM
 import random
 import time
 import os
@@ -18,8 +18,14 @@ player_hp = 0
 Attack_Modifier = 0
 Player_AC = 0
 Dexterity = 0
+
 def death():
-     typewriter(f"""Game Over. Your adventure ends here... \n \
+    # save inventory to txt file
+    with open("Savefile.txt", "w") as file:
+        for item in inventory:
+            file.write(f"{item['name']},{item['quantity']}\n")
+
+    typewriter(f"""Game Over. Your adventure ends here... \n \
                        ______
         .-"      "-.
        /            \
@@ -34,7 +40,9 @@ def death():
          `--------` \n
     {Player_Name} the {Player_Class} has fallen in the Whispering Woods.
                        """)
-     exit()
+
+    exit()
+
 
 Classes = {"Ranger","Fighter","Wizard"}
 
