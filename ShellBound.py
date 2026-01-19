@@ -16,6 +16,7 @@ player_hp = 0
 Attack_Modifier = 0
 Player_AC = 0
 Dexterity = 0
+Classes = {"Ranger","Fighter","Wizard"}
 
 def death():
     # save inventory to txt file
@@ -42,7 +43,6 @@ def death():
     exit()
 
 
-Classes = {"Ranger","Fighter","Wizard"}
 
 def intro():
 
@@ -237,17 +237,21 @@ def main() :
     
     Player_Name = input("Enter your character's name: ")
     clear_screen()
+    
     while True:
-        Player_Class = input(f"Enter your character's class \n"
-            f"{Fore.GREEN}1. Ranger{Style.RESET_ALL}\n"
-            f"{Fore.RED}2. Fighter{Style.RESET_ALL}\n"
-            f"{Fore.BLUE}3. Wizard{Style.RESET_ALL}\n")
-        while Player_Class not in {"1", "2", "3"}:
-            print("Invalid class. Please choose from:\n" 
-            f"{Fore.GREEN}1. Ranger{Style.RESET_ALL} \n" \
-            f"{Fore.RED}2. Fighter{Style.RESET_ALL} \n" \
-            f"{Fore.MAGENTA}3. Wizard{Style.RESET_ALL}")
-            continue
+        print(f"Enter your character's class:")
+        print(f"{Fore.GREEN}1. Ranger{Style.RESET_ALL}")
+        print(f"{Fore.RED}2. Fighter{Style.RESET_ALL}")
+        print(f"{Fore.BLUE}3. Wizard{Style.RESET_ALL}")
+        
+        Player_Class = input("Selection: ").strip()
+
+        if Player_Class in ["1", "2", "3"]:
+            break  # Valid input, exit loop
+        
+        clear_screen()
+        print(f"{Fore.RED}Invalid input. Please type 1, 2, or 3.{Style.RESET_ALL}\n")
+        
         if Player_Class == "1":
             player_hp = 10
             Attack_Modifier = 2
