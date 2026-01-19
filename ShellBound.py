@@ -10,8 +10,8 @@ from colorama import Fore, Style
 
 # Started working
 #testing
-#sounds##############
-######################
+#sounds
+
 Player_Name = "John"
 Player_Class = 0
 player_hp = 0
