@@ -7,15 +7,10 @@ import random
 import time
 import os
 from colorama import Fore, Style
-<<<<<<< HEAD    
+
+# Variables
 
 Player_Name = "John"
-
-
-#sounds##############
-######################
-Player_Name = ""
->>>>>>> 6c190d0608181a9cd5221d1b965e4087e19d1e2b
 Player_Class = 0
 player_hp = 0
 Attack_Modifier = 0
