@@ -22,11 +22,8 @@ Classes = {"Ranger","Fighter","Wizard"}
 
 
 def play_sound(file):
-    try:
         winsound.PlaySound(file, winsound.SND_FILENAME)
-    except:
-        pass
-
+play_sound("WHISTLE.wav")
 def death():
     # save inventory to txt file
     with open("Savefile.txt", "w") as file:
