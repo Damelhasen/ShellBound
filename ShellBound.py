@@ -320,51 +320,24 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
                 inventory.append({"name": "Fireball Spell Scroll", "quantity": 1})
                 time.sleep(3)
                 clear_screen()
-                while True:
-                    choice_1 = input("""What Would you like to do now? \n
+                choice_1 = int(input("""What Would you like to do now? \n
                 2. Inquire about your current location and situation. \n
-                3. Leave for the woods \n""")
-                    try:
-                        choice_1 = int(choice_1)
-                        if choice_1 in [2, 3]:
-                            break
-                        else:
-                            print("Invalid choice. Please select 2 or 3.")
-                    except ValueError:
-                        print("Invalid choice. Please select 2 or 3.")
+                3. Leave for the woods \n"""))
             elif scroll_choice.upper() == "N" : 
                 typewriter("You decide to leave the scroll behind, unsure of its significance.")
                 time.sleep(4)
                 clear_screen()
-                while True:
-                    choice_1 = input("""What Would you like to do now? \n
+                choice_1 = int(input("""What Would you like to do now? \n
                 2. Inquire about your current location and situation. \n
-                3. Leave for the woods \n""")
-                    try:
-                        choice_1 = int(choice_1)
-                        if choice_1 in [2, 3]:
-                            break
-                        else:
-                            print("Invalid choice. Please select 2 or 3.")
-                    except ValueError:
-                        print("Invalid choice. Please select 2 or 3.")
+                3. Leave for the woods \n"""))
 
     if choice_1 == 2:
         clear_screen()
         typewriter(f"""You look around, taking in the dense foliage and the towering trees. "Where am I?" you ask the old man. He sighs, "You're in the Whispering Woods, a place of both wonder and danger. As for how you got here, I can't say. But you look like you've been through quite an ordeal." """)
         time.sleep(4)
-        while True:
-            choice_1 = input("""What Would you like to do now? \n
+        choice_1 = int(input("""What Would you like to do now? \n
         1. Ask the old man about the scroll. \n
-        3. Leave for the woods \n""")
-            try:
-                choice_1 = int(choice_1)
-                if choice_1 in [1, 3]:
-                    break
-                else:
-                    print("Invalid choice. Please select 1 or 3.")
-            except ValueError:
-                print("Invalid choice. Please select 1 or 3.")
+        3. Leave for the woods \n"""))
         clear_screen()
         
         if choice_1 == 1:
@@ -472,10 +445,7 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         clear_screen()
     if choice_2.upper() == "Y" :
         choice_3 = input("Would You like to head towards the Ancient Ruins marked on the map? Y/N \n")
-    else:
-        choice_3 = "N"
-    
-    if choice_3.upper() == "Y" :
+    if choice_3 == "Y" :
         typewriter("You set off towards the Ancient Ruins, the map guiding your way through the dense forest.")
         time.sleep(4)
         clear_screen()
@@ -485,7 +455,7 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         combat(Player_Name, player_hp, Attack_Modifier, Player_AC, "Bandit", 18, 2, 14)
         winsound.PlaySound("WHISTLE.wav", winsound.SND_FILENAME)
         
-    elif choice_3.upper() == "N" :
+    elif choice_3 == "N" :
         typewriter("You decide to stay put for now, contemplating your next move.")
         time.sleep(4)
         clear_screen()
