@@ -1,3 +1,4 @@
 Wool  Shirt,1
 Leather Pants,1
 Gold Coins,5
+Fireball Spell Scroll,1
