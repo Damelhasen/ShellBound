@@ -258,8 +258,23 @@ def combat(player_name, player_hp, player_attack, player_ac,
         print(f"{Fore.CYAN}You defeated the {enemy_name}!{Style.RESET_ALL}")
         return True, player_hp
     else:
+<<<<<<< HEAD
         print(f"{Fore.RED}You were slain by the {enemy_name}...{Style.RESET_ALL}")
         return False, player_hp
+=======
+        print(f"{Fore.RED}You have been defeated...{Style.RESET_ALL}")
+        return False
+        
+        ######Variables#####
+Player_Name = "John"
+Player_Class = 0
+player_hp = 0
+Attack_Modifier = 0
+Player_AC = 0
+Dexterity = 0
+Classes = {"Ranger","Fighter","Wizard"}
+
+>>>>>>> 893dd1bc14d0610290d5fb942beed5969b7d3f09
 
 def main():
     intro()
