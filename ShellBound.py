@@ -7,9 +7,12 @@ import random
 import time
 import os
 from colorama import Fore, Style
+from pydub import AudioSegment
+from pydub.playback import play
+
 
 # Variables
-
+growl_sound =
 Player_Name = "John"
 Player_Class = 0
 player_hp = 0
@@ -304,11 +307,14 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
             inventory.append({"name": "Fireball Spell Scroll", "quantity": 1})
             time.sleep(3)
             clear_screen()
+            choice_1 = input("""What Would you like to do now? \n
+            2. Inquire about your current location and situation. \n
+            3. Leave for the woods \n""")
         elif scroll_choice.upper() == "N" : 
             typewriter("You decide to leave the scroll behind, unsure of its significance.")
             time.sleep(4)
             clear_screen()
-             
+            
             choice_1 = input("""What Would you like to do now? \n
             2. Inquire about your current location and situation. \n
             3. Leave for the woods \n""")
