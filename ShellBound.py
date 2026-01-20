@@ -9,7 +9,7 @@ import os
 from colorama import Fore, Style
 import winsound
 
-
+winsound.PlaySound("WHISTLE.mp3", winsound.SND_FILENAME)
 
 # Variables
 
@@ -426,7 +426,7 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         clear_screen()
         typewriter("As you approach the ruins,You cant shake the feeling something is following you suddenly you here the noice of twigs snapping behind you...")
         combat(Player_Name, player_hp, Attack_Modifier, Player_AC, "Bandit", 18, 2, 14)
-        winsound.PlaySound(None, winsound.SND_PURGE)
+        winsound.PlaySound("WHISTLE.mp3", winsound.SND_FILENAME)
     elif choice_3.upper() == "N" :
         typewriter("You decide to stay put for now, contemplating your next move.")
         time.sleep(4)
