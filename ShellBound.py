@@ -261,7 +261,7 @@ def combat(player_name, player_hp, player_attack, player_ac,
         print(f"{Fore.RED}You have been defeated...{Style.RESET_ALL}")
         return False, player_hp
         
-        ######Variables#####
+        # Main Game Loop
 Player_Name = "John"
 Player_Class = 0
 player_hp = 0
