@@ -1,4 +1,3 @@
-
 """ Authors : Johan Sheby , Chriss John Francis , Ayham Al-Dibeh
     Date : 11-01-2026
  A simple Adventure game in terminal"""
@@ -12,7 +11,7 @@ winsound.PlaySound("Whistle.wav", winsound.SND_FILENAME)
 
 # Variables
 
-Player_Name = "John"
+Player_Name = ""
 Player_Class = 0
 player_hp = 0
 Attack_Modifier = 0
@@ -58,7 +57,7 @@ def intro():
         .#..            +..  ..+             .#..     
         .#+.           *:      .#            =#..     
         .++..        .*:        .#.        ..*+..     
-        .+:+.       .+.          .*.       .=:+.      
+        .+:+.       .+..          .*.       .=:+.      
         .+.*:      .+..           .*.      .#.+..     
         .+ .+.    .#.              .#.    .=. +..     
         .*  +:   .#.                .%.   .*. +..     
@@ -189,7 +188,6 @@ def display_enemy(enemy_name, enemy_health):
 
 def combat(player_name, player_hp, player_attack, player_ac, enemy_name, enemy_hp, enemy_attack, enemy_ac):
     
-    
     player_hp = player_hp
     
     print(f"\n{Fore.RED}=== COMBAT START ==={Style.RESET_ALL}")
@@ -214,6 +212,15 @@ def combat(player_name, player_hp, player_attack, player_ac, enemy_name, enemy_h
         elif action == "2":
             print(f"{Fore.BLUE}You brace for impact...{Style.RESET_ALL}")
             time.sleep(2)
+        elif action == "3":
+            escape_roll = roll_dice(20, 0)
+            if escape_roll >= 12:
+                print(f"{Fore.GREEN}[Roll: {escape_roll}] You successfully escaped!{Style.RESET_ALL}")
+                time.sleep(2)
+                return None
+            else:
+                print(f"{Fore.RED}[Roll: {escape_roll}] You failed to escape!{Style.RESET_ALL}")
+                time.sleep(2)
         
         clear_screen()
         
@@ -294,55 +301,101 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
     1. Ask the old man about the scroll. \n
     2. Inquire about your current location and situation. \n
     3. Leave for the woods \n""")
-    if int(choice_1) != 1 and int(choice_1) != 2 and int(choice_1) != 3 :
+    
+    try:
+        choice_1 = int(choice_1)
+    except ValueError:
         print("Invalid choice. Please select 1, 2, or 3.")
-    while int(choice_1) == 1 :
-        clear_screen()
-        typewriter(f"""You pick up the scroll, its edges frayed and the seal cracked. "This looks important," you say, as you read it you realize its a Fire ball spell scroll """)
-        typewriter(f"""Would Like to keep it ? Y/N \n""")
-        scroll_choice = input()
-        
-        if scroll_choice.upper() == "Y" : 
-            typewriter("You carefully tuck the scroll into your pack, feeling a strange warmth emanating from it.")
-            inventory.append({"name": "Fireball Spell Scroll", "quantity": 1})
-            time.sleep(3)
+        return
+    
+    if choice_1 == 1:
+        while choice_1 == 1:
             clear_screen()
-            choice_1 = input("""What Would you like to do now? \n
-            2. Inquire about your current location and situation. \n
-            3. Leave for the woods \n""")
-        elif scroll_choice.upper() == "N" : 
-            typewriter("You decide to leave the scroll behind, unsure of its significance.")
-            time.sleep(4)
-            clear_screen()
+            typewriter(f"""You pick up the scroll, its edges frayed and the seal cracked. "This looks important," you say, as you read it you realize its a Fire ball spell scroll """)
+            typewriter(f"""Would Like to keep it ? Y/N \n""")
+            scroll_choice = input()
             
-            choice_1 = input("""What Would you like to do now? \n
-            2. Inquire about your current location and situation. \n
-            3. Leave for the woods \n""")
+            if scroll_choice.upper() == "Y" : 
+                typewriter("You carefully tuck the scroll into your pack, feeling a strange warmth emanating from it.")
+                inventory.append({"name": "Fireball Spell Scroll", "quantity": 1})
+                time.sleep(3)
+                clear_screen()
+                while True:
+                    choice_1 = input("""What Would you like to do now? \n
+                2. Inquire about your current location and situation. \n
+                3. Leave for the woods \n""")
+                    try:
+                        choice_1 = int(choice_1)
+                        if choice_1 in [2, 3]:
+                            break
+                        else:
+                            print("Invalid choice. Please select 2 or 3.")
+                    except ValueError:
+                        print("Invalid choice. Please select 2 or 3.")
+            elif scroll_choice.upper() == "N" : 
+                typewriter("You decide to leave the scroll behind, unsure of its significance.")
+                time.sleep(4)
+                clear_screen()
+                while True:
+                    choice_1 = input("""What Would you like to do now? \n
+                2. Inquire about your current location and situation. \n
+                3. Leave for the woods \n""")
+                    try:
+                        choice_1 = int(choice_1)
+                        if choice_1 in [2, 3]:
+                            break
+                        else:
+                            print("Invalid choice. Please select 2 or 3.")
+                    except ValueError:
+                        print("Invalid choice. Please select 2 or 3.")
 
-    while int(choice_1) == 2 :
+    if choice_1 == 2:
         clear_screen()
         typewriter(f"""You look around, taking in the dense foliage and the towering trees. "Where am I?" you ask the old man. He sighs, "You're in the Whispering Woods, a place of both wonder and danger. As for how you got here, I can't say. But you look like you've been through quite an ordeal." """)
         time.sleep(4)
-        choice_1 = input("""What Would you like to do now? \n
+        while True:
+            choice_1 = input("""What Would you like to do now? \n
         1. Ask the old man about the scroll. \n
         3. Leave for the woods \n""")
+            try:
+                choice_1 = int(choice_1)
+                if choice_1 in [1, 3]:
+                    break
+                else:
+                    print("Invalid choice. Please select 1 or 3.")
+            except ValueError:
+                print("Invalid choice. Please select 1 or 3.")
         clear_screen()
-    while  int(choice_1) == 3 :
+        
+        if choice_1 == 1:
+            while choice_1 == 1:
+                clear_screen()
+                typewriter(f"""You pick up the scroll, its edges frayed and the seal cracked. "This looks important," you say, as you read it you realize its a Fire ball spell scroll """)
+                typewriter(f"""Would Like to keep it ? Y/N \n""")
+                scroll_choice = input()
+                
+                if scroll_choice.upper() == "Y" : 
+                    typewriter("You carefully tuck the scroll into your pack, feeling a strange warmth emanating from it.")
+                    inventory.append({"name": "Fireball Spell Scroll", "quantity": 1})
+                    time.sleep(3)
+                    clear_screen()
+                    choice_1 = 3
+                elif scroll_choice.upper() == "N" : 
+                    typewriter("You decide to leave the scroll behind, unsure of its significance.")
+                    time.sleep(4)
+                    clear_screen()
+                    choice_1 = 3
+
+    if choice_1 == 3:
         clear_screen()
         typewriter("You decide to leave the safety of the campfire and venture into the woods.")
         time.sleep(3)
         clear_screen()
         typewriter("As you walk deeper into the forest, you hear a growl...")
         winsound.PlaySound("Monster.wav", winsound.SND_FILENAME)
-
-        
-
-
         time.sleep(4)
         clear_screen()
         
-        # Random enemy 
-       
         enemy = random.choice(["Goblin", "Orc"])
         enemy_hp = 15 if enemy == "Goblin" else 20 
         enemy_attack = 1 if enemy == "Goblin" else 2
@@ -353,17 +406,16 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         
         victory = combat(Player_Name, player_hp, Attack_Modifier, Player_AC, enemy, enemy_hp, enemy_attack, enemy_ac)
         
-        if victory:
+        if victory is None:
+            typewriter("You managed to escape into the woods...")
+            time.sleep(3)
+            clear_screen()
+        elif victory:
             add_item("Gold Coins", random.randint(5, 15))
             add_item("Map",1)
             typewriter("You loot the creature and find some gold!")
-            break
         else:
            death()
-           break
-
-           
-         
         
         typewriter("After your encounter, you take a moment to check your inventory.")        
         print("Your current inventory:\n")
@@ -419,8 +471,11 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         time.sleep(4)
         clear_screen()
     if choice_2.upper() == "Y" :
-        choice_3 = typewriter("Would You like to head towards the Ancient Ruins marked on the map?")
-    if choice_3 == "Y" :
+        choice_3 = input("Would You like to head towards the Ancient Ruins marked on the map? Y/N \n")
+    else:
+        choice_3 = "N"
+    
+    if choice_3.upper() == "Y" :
         typewriter("You set off towards the Ancient Ruins, the map guiding your way through the dense forest.")
         time.sleep(4)
         clear_screen()
@@ -430,7 +485,7 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         combat(Player_Name, player_hp, Attack_Modifier, Player_AC, "Bandit", 18, 2, 14)
         winsound.PlaySound("WHISTLE.wav", winsound.SND_FILENAME)
         
-    elif choice_3 == "N" :
+    elif choice_3.upper() == "N" :
         typewriter("You decide to stay put for now, contemplating your next move.")
         time.sleep(4)
         clear_screen()
