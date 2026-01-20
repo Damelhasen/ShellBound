@@ -114,7 +114,8 @@ def Player_Attack(attcker_name:str, attack_modifier:int, defender_ac:int, damage
     else : 
         print(f"{attcker_name} misses {player_hp}!")
 
-def player_defend(attcker_name:str, attack_modifier:int, defender_ac:int, damage_roll:int, player_hp:int) :
+def player_defend(attcker_name:str, attack_modifier:int, defender_ac:int, damage_roll:int) :
+    global player_hp
     attacK_roll = roll_dice(20,attack_modifier) 
     if attacK_roll >= defender_ac : 
     
@@ -122,8 +123,6 @@ def player_defend(attcker_name:str, attack_modifier:int, defender_ac:int, damage
         print(f"{attcker_name} hits {Player_Name} for {damage_roll} damage!")
     else : 
         print(f"{attcker_name} misses {Player_Name}!")
-    
-    return player_hp
 
 
 inventory = [
@@ -214,14 +213,14 @@ def combat(player_name, player_hp, player_attack, player_ac, enemy_name, enemy_h
                 time.sleep(2)
         elif action == "2":
             print(f"{Fore.BLUE}You brace for impact...{Style.RESET_ALL}")
-            time.sleep(1)
-
+            time.sleep(2)
+        
         clear_screen()
         
         # Enemy attacks 
         if enemy_hp > 0:
-            player_hp = player_defend(enemy_name, enemy_attack, player_ac, roll_dice(6, 0), player_hp)
-
+            player_defend(enemy_name, enemy_attack, player_ac, roll_dice(6, 0))
+        
         input("Press Enter to continue...")
         clear_screen()
     
@@ -297,7 +296,6 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
     3. Leave for the woods \n""")
     if int(choice_1) != 1 and int(choice_1) != 2 and int(choice_1) != 3 :
         print("Invalid choice. Please select 1, 2, or 3.")
-
     while int(choice_1) == 1 :
         clear_screen()
         typewriter(f"""You pick up the scroll, its edges frayed and the seal cracked. "This looks important," you say, as you read it you realize its a Fire ball spell scroll """)
@@ -321,15 +319,13 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
             2. Inquire about your current location and situation. \n
             3. Leave for the woods \n""")
 
-    while True and int(choice_1) == 2:
+    while int(choice_1) == 2 :
         clear_screen()
         typewriter(f"""You look around, taking in the dense foliage and the towering trees. "Where am I?" you ask the old man. He sighs, "You're in the Whispering Woods, a place of both wonder and danger. As for how you got here, I can't say. But you look like you've been through quite an ordeal." """)
         time.sleep(4)
         choice_1 = input("""What Would you like to do now? \n
-        A. Ask the old man about the scroll. \n B. Leave for the woods \n""").upper()
-        if choice_1 == "A" :
-            choice_1 = 1
-            break
+        1. Ask the old man about the scroll. \n
+        3. Leave for the woods \n""")
         clear_screen()
     while  int(choice_1) == 3 :
         clear_screen()
@@ -358,79 +354,14 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         victory = combat(Player_Name, player_hp, Attack_Modifier, Player_AC, enemy, enemy_hp, enemy_attack, enemy_ac)
         
         if victory:
-            choice_2 = 365
-            choice_1 = 365
             add_item("Gold Coins", random.randint(5, 15))
             add_item("Map",1)
             typewriter("You loot the creature and find some gold!")
-            typewriter(f"In the {enemy} pocket you find a mysterious map , would you like to examine it?")
-            choice_2 = input("Y/N \n")
-            if choice_2.upper() == "Y" : 
-                typewriter("You unfold the map, its surface worn and creased. The ink has faded in places, but you can still make out a path leading to a marked location deep within the Whispering Woods. A red 'X' indicates a spot labeled 'Ancient Ruins'.")
-                time.sleep(5)
-                print(f"""+--------------------------------------------------------------------------------+
-    | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |
-    | ~                               THE WESTERN SEA                               ~ |
-    | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |
-    |                                                                                |
-    |   ^^^^   ^^^^^^^^      ^^^^^^^^        ^^^^^^^^        ^^^^                    |
-    |  ^^^^^^ ^ DRAGON ^    ^ STORM   ^      ^ FROST   ^    ^^^^^                   |
-    | ^^^  ^^^^ MOUNTS ^^^^^^ PEAKS   ^^^^^^^^ PEAKS   ^^^^^^  ^^^                  |
-    |      ||        ||          ||              ||         ||                     |
-    |      ||        ||          ||              ||         ||                     |
-    |  ====||========||==========||==============||=========||================     |
-    |      ||        ||             RIVER OF SILVER            ||                   |
-    |      ||        ||          ||              ||         ||                     |
-    |                                                                                |
-    |        +----------------------------+       +---------------------+           |
-    |        |        ELDER FOREST         |       |    NORTHERN WOODS    |           |
-    |        |  ######   ######   ######   |       |  #####  #####  #### |           |
-    |        |  ######   ######   ######   |       |  #####  #####  #### |           |
-    |        +----------------------------+       +---------------------+           |
-    |                     |                              |                            |
-    |                     |                              |                            |
-    |              .-----------------.           .-----------------.                 |
-    |             |     LOST RUINS     |         |  WATCHTOWER     |                |
-    |             |     of Valen       |         |  OUTPOST        |                |
-    |              '-----------------'           '-----------------'                |
-    |                                                                                |
-    |   ~~~~~~{Fore.RED}     X  {Style.RESET_ALL}       ~~~~~~                       |
-    |  ~ SWAMP ~                                        ~ MARSH ~                    |
-    |   ~~~~~~                                        ~~~~~~                        |
-    |                                                                                |
-    | :::::::::::::::::::::::::::: DESERT OF ASH ::::::::::::::::::::::::::::::::: |
-    |                                                                                |
-    |   [O]      [O]      [O]        [O]        [O]        [O]                       |
-    |  Camp     Camp     Camp       Camp       Camp       Camp                      |
-    |                                                                                |
-    |                    +------+            +----------+                           |
-    |                    | PORT |            |  DOCKS   |                           |
-    |                    +------+            +----------+                           |
-    +--------------------------------------------------------------------------------+
-    """)
-            elif choice_2.upper() == "N" : 
-                typewriter("You decide to keep the map folded away for now, unsure of where it might lead.")
-                time.sleep(4)
-                clear_screen()
-            if choice_2.upper() == "Y" :
-                choice_3 = typewriter("Would You like to head towards the Ancient Ruins marked on the map?")
-            if choice_3 == "Y" :
-                typewriter("You set off towards the Ancient Ruins, the map guiding your way through the dense forest.")
-                time.sleep(4)
-                clear_screen()
-                typewriter("As you approach the ruins,You cant shake the feeling something is following you suddenly you here the noise of twigs snapping behind you...")
-                winsound.PlaySound("SNAP.wav", winsound.SND_FILENAME)
-                time.sleep()
-                combat(Player_Name, player_hp, Attack_Modifier, Player_AC, "Bandit", 18, 2, 14)
-                winsound.PlaySound("WHISTLE.wav", winsound.SND_FILENAME)
-                
-            elif choice_3 == "N" :
-                typewriter("You decide to stay put for now, contemplating your next move.")
-                time.sleep(4)
-                clear_screen()
-    else:
-        death()
-        exit()
+            break
+        else:
+           death()
+           break
+
            
          
         
@@ -438,6 +369,98 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         print("Your current inventory:\n")
         display_inventory()
 
+    typewriter("In the Goblins pocket you find a mysterious map , would you like to examine it?")
+    choice_2 = input("Y/N \n")
+    if choice_2.upper() == "Y" : 
+        typewriter("You unfold the map, its surface worn and creased. The ink has faded in places, but you can still make out a path leading to a marked location deep within the Whispering Woods. A red 'X' indicates a spot labeled 'Ancient Ruins'.")
+        time.sleep(2)
+        print(f"""+--------------------------------------------------------------------------------+
+| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |
+| ~                               THE WESTERN SEA                               ~ |
+| ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |
+|                                                                                |
+|   ^^^^   ^^^^^^^^      ^^^^^^^^        ^^^^^^^^        ^^^^                    |
+|  ^^^^^^ ^ DRAGON ^    ^ STORM   ^      ^ FROST   ^    ^^^^^                   |
+| ^^^  ^^^^ MOUNTS ^^^^^^ PEAKS   ^^^^^^^^ PEAKS   ^^^^^^  ^^^                  |
+|      ||        ||          ||              ||         ||                     |
+|      ||        ||          ||              ||         ||                     |
+|  ====||========||==========||==============||=========||================     |
+|      ||        ||             RIVER OF SILVER            ||                   |
+|      ||        ||          ||              ||         ||                     |
+|                                                                                |
+|        +----------------------------+       +---------------------+           |
+|        |        ELDER FOREST         |       |    NORTHERN WOODS    |           |
+|        |  ######   ######   ######   |       |  #####  #####  #### |           |
+|        |  ######   ######   ######   |       |  #####  #####  #### |           |
+|        +----------------------------+       +---------------------+           |
+|                     |                              |                            |
+|                     |                              |                            |
+|              .-----------------.           .-----------------.                 |
+|             |     LOST RUINS     |         |  WATCHTOWER     |                |
+|             |     of Valen       |         |  OUTPOST        |                |
+|              '-----------------'           '-----------------'                |
+|                                                                                |
+|   ~~~~~~{Fore.RED}     X  {Style.RESET_ALL}       ~~~~~~                       |
+|  ~ SWAMP ~                                        ~ MARSH ~                    |
+|   ~~~~~~                                        ~~~~~~                        |
+|                                                                                |
+| :::::::::::::::::::::::::::: DESERT OF ASH ::::::::::::::::::::::::::::::::: |
+|                                                                                |
+|   [O]      [O]      [O]        [O]        [O]        [O]                       |
+|  Camp     Camp     Camp       Camp       Camp       Camp                      |
+|                                                                                |
+|                    +------+            +----------+                           |
+|                    | PORT |            |  DOCKS   |                           |
+|                    +------+            +----------+                           |
++--------------------------------------------------------------------------------+
+""")
+    elif choice_2.upper() == "N" : 
+        typewriter("You decide to keep the map folded away for now, unsure of where it might lead.")
+        time.sleep(4)
+        clear_screen()
+    if choice_2.upper() == "Y" :
+        choice_3 = typewriter("Would You like to head towards the Ancient Ruins marked on the map?")
+    if choice_3 == "Y" :
+        typewriter("You set off towards the Ancient Ruins, the map guiding your way through the dense forest.")
+        time.sleep(4)
+        clear_screen()
+        typewriter("As you approach the ruins,You cant shake the feeling something is following you suddenly you here the noise of twigs snapping behind you...")
+        winsound.PlaySound("SNAP.wav", winsound.SND_FILENAME)
+        time.sleep()
+        combat(Player_Name, player_hp, Attack_Modifier, Player_AC, "Bandit", 18, 2, 14)
+        winsound.PlaySound("WHISTLE.wav", winsound.SND_FILENAME)
+        
+    elif choice_3 == "N" :
+        typewriter("You decide to stay put for now, contemplating your next move.")
+        time.sleep(4)
+        typewriter(f"""The enemy fell into the ferns, blood soaking the forest floor. {Player_Class} stood still, listening.
+
+The birdsong looped.
+
+A pale symbol hovered between the trees.
+ >>>
+
+They ran. Legs moved without burn, without breath.
+
+Too clean.
+
+The forest stuttered as they passed, trunks scrolling like lines of output. The body unraveled at the roots, dissolving into green text.
+ {Fore.RED}NameError: enemy is not defined {Style.RESET_ALL}
+
+Wind repeated. Footsteps executed.
+{Fore.LIGHTMAGENTA_EX} while {Player_Class}.running:{Fore.RESET}
+
+That was the moment of realization.
+
+They were not choosing to run.
+
+They were running.
+
+Above the canopy, a cursor blinked.
+
+Waiting for input.
+""")
+        clear_screen()
 
 if __name__ == "__main__":   
     main()
