@@ -7,9 +7,6 @@ import random
 import time
 import os
 from colorama import Fore, Style
-import winsound
-
-
 
 # Variables
 
@@ -20,6 +17,7 @@ Attack_Modifier = 0
 Player_AC = 0
 Dexterity = 0
 Classes = {"Ranger","Fighter","Wizard"}
+
 def death():
     # save inventory to txt file
     with open("Savefile.txt", "w") as file:
@@ -100,7 +98,7 @@ def roll_dice(sides:int,modifier:int) :
 def typewriter(text):
     for char in text:
         print(char, end='')
-        time.sleep(0.01)
+        time.sleep(0.00)
     print()
 
 def Player_Attack(attcker_name:str, attack_modifier:int, defender_ac:int, damage_roll:int):
@@ -192,15 +190,13 @@ def combat(player_name, player_hp, player_attack, player_ac, enemy_name, enemy_h
     
     
     player_hp = player_hp
-    
+
     print(f"\n{Fore.RED}=== COMBAT START ==={Style.RESET_ALL}")
-    
-    while player_hp > 0 and enemy_hp > 0:
+    while True and player_hp > 0 and enemy_hp > 0:
         display_enemy(enemy_name, enemy_hp)
         print(f"{player_name} HP: {player_hp}\n")
         
         action = input("1. Attack\n2. Defend\n3. Run away \nChoose one: ").strip()
-        
         if action == "1":
             # Player 
             attack_roll = roll_dice(20, player_attack)
@@ -232,7 +228,98 @@ def combat(player_name, player_hp, player_attack, player_ac, enemy_name, enemy_h
         print(f"{Fore.RED}You have been defeated...{Style.RESET_ALL}")
         return False
 
-def main() : 
+def main():
+
+    global Player_Name, Player_Class
+    global player_hp, Attack_Modifier, Player_AC, Dexterity
+
+    intro()
+    input("Press Enter to start your adventure...")
+    clear_screen()
+
+    Player_Name = input("Enter your character's name: ")
+    clear_screen()
+
+    # Class Selection
+    while True:
+        print("Enter your character's class:")
+        print(f"{Fore.GREEN}1. Ranger{Style.RESET_ALL}")
+        print(f"{Fore.RED}2. Fighter{Style.RESET_ALL}")
+        print(f"{Fore.BLUE}3. Wizard{Style.RESET_ALL}")
+
+        Player_Class = input("Selection: ").strip()
+
+        if Player_Class == "1":
+            player_hp = 10
+            Attack_Modifier = 2
+            Player_AC = 14
+            Dexterity = 3
+            Player_Class = "Ranger"
+            break
+
+        elif Player_Class == "2":
+            player_hp = 12
+            Attack_Modifier = 3
+            Player_AC = 16
+            Dexterity = 2
+            Player_Class = "Fighter"
+            break
+
+        elif Player_Class == "3":
+            player_hp = 8
+            Attack_Modifier = 4
+            Player_AC = 12
+            Dexterity = 4
+            Player_Class = "Wizard"
+            break
+
+        clear_screen()
+        print(f"{Fore.RED}Invalid input. Please type 1, 2, or 3.{Style.RESET_ALL}\n")
+
+    clear_screen()
+    print(f"Welcome, {Player_Name} the {Player_Class}!")
+    print(f"Health: {player_hp}, Attack Modifier: {Attack_Modifier}, "
+          f"Armor Class: {Player_AC}, Dexterity: {Dexterity}")
+    time.sleep(3)
+    clear_screen()
+
+    # story intro
+    typewriter(
+        "The rain is the first thing you feel—cold, relentless, and smelling of ancient pine.\n"
+        "You rise from the forest floor and feel eyes watching you from the trees..."
+    )
+    time.sleep(2)
+
+    # first encounter
+    enemy = random.choice(["Goblin", "Orc"])
+    enemy_hp = 15 if enemy == "Goblin" else 20
+    enemy_attack = 1 if enemy == "Goblin" else 2
+    enemy_ac = 12 if enemy == "Goblin" else 13
+
+    typewriter(f"A wild {enemy} appears!")
+    time.sleep(2)
+    clear_screen()
+
+    victory, player_hp = combat(
+        Player_Name,
+        player_hp,
+        Attack_Modifier,
+        Player_AC,
+        enemy,
+        enemy_hp,
+        enemy_attack,
+        enemy_ac
+    )
+
+    if victory:
+        typewriter(f"You defeated the {enemy}!")
+        add_item("Gold Coins", random.randint(5, 15))
+        time.sleep(2)
+        display_inventory()
+    else:
+        death()
+
+
     intro()
     input("Press Enter to start your adventure...")
     clear_screen()
@@ -241,17 +328,15 @@ def main() :
     clear_screen()
     
     while True:
-        Player_Class = input(f"Enter your character's class \n"
-            f"{Fore.GREEN}1. Ranger{Style.RESET_ALL}\n"
-            f"{Fore.RED}2. Fighter{Style.RESET_ALL}\n"
-            f"{Fore.BLUE}3. Wizard{Style.RESET_ALL}\n")
-        while Player_Class != "1" and Player_Class != "2" and Player_Class != "3" :
-            Player_Class = input("Invalid class. Please choose from:\n" 
-            f"{Fore.GREEN}1. Ranger{Style.RESET_ALL} \n" \
-            f"{Fore.RED}2. Fighter{Style.RESET_ALL} \n" \
-            f"{Fore.MAGENTA}3. Wizard{Style.RESET_ALL}\n")
-            time.sleep(4)
-            clear_screen()
+        print(f"Enter your character's class:")
+        print(f"{Fore.GREEN}1. Ranger{Style.RESET_ALL}")
+        print(f"{Fore.RED}2. Fighter{Style.RESET_ALL}")
+        print(f"{Fore.BLUE}3. Wizard{Style.RESET_ALL}")
+        
+        Player_Class = input("Selection: ").strip()
+
+        if Player_Class in ["1", "2", "3"]:
+            break  # Valid input, exit loop
         
         if Player_Class == "1":
             player_hp = 10
@@ -259,20 +344,27 @@ def main() :
             Player_AC = 14
             Dexterity = 3
             Player_Class = "Ranger"
+            break
+
         elif Player_Class == "2":
             player_hp = 12
             Attack_Modifier = 3
             Player_AC = 16
             Dexterity = 2
             Player_Class = "Fighter"
-        elif Player_Class == "3":
-            player_hp = 12
-            Attack_Modifier = 3
-            Player_AC = 16
-            Dexterity = 2
-            Player_Class = "Wizard"
-        break
+            break
 
+        elif Player_Class == "3":
+            player_hp = 8
+            Attack_Modifier = 4
+            Player_AC = 12
+            Dexterity = 4
+            Player_Class = "Wizard"
+            break
+
+        clear_screen()
+        print(f"{Fore.RED}Invalid input. Please type 1, 2, or 3.{Style.RESET_ALL}\n")
+        
     
     print(f"Welcome, {Player_Name} the {Player_Class}!")
     print(f"Health: {player_hp}, Attack Modifier: {Attack_Modifier}, Armor Class: {Player_AC}, Dexterity: {Dexterity}")
@@ -307,14 +399,11 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
             inventory.append({"name": "Fireball Spell Scroll", "quantity": 1})
             time.sleep(3)
             clear_screen()
-            choice_1 = input("""What Would you like to do now? \n
-            2. Inquire about your current location and situation. \n
-            3. Leave for the woods \n""")
         elif scroll_choice.upper() == "N" : 
             typewriter("You decide to leave the scroll behind, unsure of its significance.")
             time.sleep(4)
             clear_screen()
-            
+             
             choice_1 = input("""What Would you like to do now? \n
             2. Inquire about your current location and situation. \n
             3. Leave for the woods \n""")
@@ -333,8 +422,6 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         time.sleep(3)
         clear_screen()
         typewriter("As you walk deeper into the forest, you hear a growl...")
-        winsound.PlaySound("Monster.wav", winsound.SND_FILENAME)
-
         
 
 
@@ -418,22 +505,5 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         typewriter("You decide to keep the map folded away for now, unsure of where it might lead.")
         time.sleep(4)
         clear_screen()
-    if choice_2.upper() == "Y" :
-        choice_3 = typewriter("Would You like to head towards the Ancient Ruins marked on the map?")
-    if choice_3.upper() == "Y" :
-        typewriter("You set off towards the Ancient Ruins, the map guiding your way through the dense forest.")
-        time.sleep(4)
-        clear_screen()
-        typewriter("As you approach the ruins,You cant shake the feeling something is following you suddenly you here the noice of twigs snapping behind you...")
-        winsound.PlaySound("SNAP.wav", winsound.SND_FILENAME)
-        time.sleep()
-        combat(Player_Name, player_hp, Attack_Modifier, Player_AC, "Bandit", 18, 2, 14)
-        winsound.PlaySound("WHISTLE.wav", winsound.SND_FILENAME)
-        
-    elif choice_3.upper() == "N" :
-        typewriter("You decide to stay put for now, contemplating your next move.")
-        time.sleep(4)
-        clear_screen()
-
 if __name__ == "__main__":   
     main()
