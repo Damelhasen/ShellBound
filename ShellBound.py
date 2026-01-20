@@ -223,7 +223,7 @@ def combat(player_name, player_hp, player_attack, player_ac, enemy_name, enemy_h
     
     if player_hp > 0:
         print(f"{Fore.GREEN}Victory! You defeated the {enemy_name}!{Style.RESET_ALL}")
-        return True
+        return True, player_hp
     else:
         print(f"{Fore.RED}You have been defeated...{Style.RESET_ALL}")
         return False
@@ -444,10 +444,11 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
             add_item("Gold Coins", random.randint(5, 15))
             add_item("Map",1)
             typewriter("You loot the creature and find some gold!")
-            break
+            time.sleep(2)
+            clear_screen()
         else:
            death()
-           break
+           break    
 
            
          
