@@ -1,0 +1,3 @@
+Wool  Shirt,1
+Leather Pants,1
+Gold Coins,5
