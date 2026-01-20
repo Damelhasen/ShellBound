@@ -7,12 +7,12 @@ import random
 import time
 import os
 from colorama import Fore, Style
-from pydub import AudioSegment
-from pydub.playback import play
+import winsound
+
 
 
 # Variables
-growl_sound =
+
 Player_Name = "John"
 Player_Class = 0
 player_hp = 0
@@ -20,7 +20,6 @@ Attack_Modifier = 0
 Player_AC = 0
 Dexterity = 0
 Classes = {"Ranger","Fighter","Wizard"}
-
 def death():
     # save inventory to txt file
     with open("Savefile.txt", "w") as file:
@@ -333,6 +332,8 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         time.sleep(3)
         clear_screen()
         typewriter("As you walk deeper into the forest, you hear a growl...")
+        winsound.PlaySound("Monster.wav", winsound.SND_FILENAME)
+
         
 
 
