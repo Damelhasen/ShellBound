@@ -230,6 +230,7 @@ Attack_Modifier = 0
 Player_AC = 0
 Dexterity = 0
 Classes = {"Ranger","Fighter","Wizard"}
+game_won = False
 
 
 def main() :
