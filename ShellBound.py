@@ -100,7 +100,7 @@ def roll_dice(sides:int,modifier:int) :
 def typewriter(text):
     for char in text:
         print(char, end='')
-        time.sleep(0.00)
+        time.sleep(0.01)
     print()
 
 def Player_Attack(attcker_name:str, attack_modifier:int, defender_ac:int, damage_roll:int):
@@ -245,12 +245,13 @@ def main() :
             f"{Fore.GREEN}1. Ranger{Style.RESET_ALL}\n"
             f"{Fore.RED}2. Fighter{Style.RESET_ALL}\n"
             f"{Fore.BLUE}3. Wizard{Style.RESET_ALL}\n")
-        while Player_Class not in {"1", "2", "3"}:
-            print("Invalid class. Please choose from:\n" 
+        while Player_Class != "1" and Player_Class != "2" and Player_Class != "3" :
+            Player_Class = input("Invalid class. Please choose from:\n" 
             f"{Fore.GREEN}1. Ranger{Style.RESET_ALL} \n" \
             f"{Fore.RED}2. Fighter{Style.RESET_ALL} \n" \
-            f"{Fore.MAGENTA}3. Wizard{Style.RESET_ALL}")
-            continue
+            f"{Fore.MAGENTA}3. Wizard{Style.RESET_ALL}\n")
+            time.sleep(4)
+            clear_screen()
         
         if Player_Class == "1":
             player_hp = 10
@@ -417,5 +418,19 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         typewriter("You decide to keep the map folded away for now, unsure of where it might lead.")
         time.sleep(4)
         clear_screen()
+    if choice_2.upper() == "Y" :
+        choice_3 = typewriter("Would You like to head towards the Ancient Ruins marked on the map?")
+    if choice_3.upper() == "Y" :
+        typewriter("You set off towards the Ancient Ruins, the map guiding your way through the dense forest.")
+        time.sleep(4)
+        clear_screen()
+        typewriter("As you approach the ruins,You cant shake the feeling something is following you suddenly you here the noice of twigs snapping behind you...")
+        combat(Player_Name, player_hp, Attack_Modifier, Player_AC, "Bandit", 18, 2, 14)
+        winsound.PlaySound(None, winsound.SND_PURGE)
+    elif choice_3.upper() == "N" :
+        typewriter("You decide to stay put for now, contemplating your next move.")
+        time.sleep(4)
+        clear_screen()
+
 if __name__ == "__main__":   
     main()
