@@ -425,8 +425,11 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         time.sleep(4)
         clear_screen()
         typewriter("As you approach the ruins,You cant shake the feeling something is following you suddenly you here the noice of twigs snapping behind you...")
+        winsound.PlaySound("SNAP.wav", winsound.SND_FILENAME)
+        time.sleep()
         combat(Player_Name, player_hp, Attack_Modifier, Player_AC, "Bandit", 18, 2, 14)
-        winsound.PlaySound("WHISTLE.mp3", winsound.SND_FILENAME)
+        winsound.PlaySound("WHISTLE.wav", winsound.SND_FILENAME)
+        
     elif choice_3.upper() == "N" :
         typewriter("You decide to stay put for now, contemplating your next move.")
         time.sleep(4)
