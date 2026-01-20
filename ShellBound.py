@@ -22,11 +22,8 @@ Classes = {"Ranger","Fighter","Wizard"}
 
 
 def play_sound(file):
-    try:
-        winsound.PlaySound(file, winsound.SND_FILENAME)
-    except:
-        pass
-
+    winsound.PlaySound(file, winsound.SND_FILENAME)
+play_sound("WHISTLE.wav")
 def death():
     # save inventory to txt file
     with open("Savefile.txt", "w") as file:
@@ -195,255 +192,225 @@ def display_enemy(enemy_name, enemy_health):
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠛⠛⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
         """)
 
-def combat(player_name, player_hp, player_attack, player_ac, enemy_name, enemy_hp, enemy_attack, enemy_ac):
-    
-    
-    player_hp = player_hp
-    
+def combat(player_name, player_hp, player_attack, player_ac,
+           enemy_name, enemy_hp, enemy_attack, enemy_ac):
+
     print(f"\n{Fore.RED}=== COMBAT START ==={Style.RESET_ALL}")
-    
+    time.sleep(1)
+
     while player_hp > 0 and enemy_hp > 0:
+        clear_screen()
         display_enemy(enemy_name, enemy_hp)
-        print(f"{player_name} HP: {player_hp}\n")
-        
-        action = input("1. Attack\n2. Defend\n3. Run away \nChoose one: ").strip()
-        
-        if action == "1":
-            # Player 
-            attack_roll = roll_dice(20, player_attack)
-            if attack_roll >= enemy_ac:
+        print(f"\n{player_name} HP: {player_hp}")
+
+        choice = input("\n1. Attack\n2. Defend\n3. Run\nChoose: ").strip()
+
+        # player turn
+        if choice == "1":
+            roll = roll_dice(20, player_attack)
+            if roll == 20:
+                damage = roll_dice(6, 0) * 2
+                enemy_hp -= damage
+                print(f"{Fore.GREEN}CRITICAL HIT! You deal {damage} damage!{Style.RESET_ALL}")
+            elif roll >= enemy_ac:
                 damage = roll_dice(6, 0)
                 enemy_hp -= damage
-                print(f"{Fore.CYAN}[Roll: {attack_roll}] You hit for {damage} damage!{Style.RESET_ALL}")
-                time.sleep(2)
+                print(f"You hit the {enemy_name} for {damage} damage!")
             else:
-                print(f"{Fore.YELLOW}[Roll: {attack_roll}] You miss!{Style.RESET_ALL}")
-                time.sleep(2)
-        elif action == "2":
-            print(f"{Fore.BLUE}You brace for impact...{Style.RESET_ALL}")
-            time.sleep(1)
+                print("You miss!")
 
-        clear_screen()
-        
-        # Enemy attacks 
+        elif choice == "2":
+            print("You brace for the enemy’s attack.")
+            player_ac += 2  # temporary boost
+
+        elif choice == "3":
+            print("You try to run away...")
+            if roll_dice(20, 0) >= 12:
+                print("You escape successfully!")
+                return False, player_hp
+            else:
+                print("You fail to escape!")
+
+        else:
+            print("Invalid choice!")
+            continue
+
+        time.sleep(1)
+
+        # enemy turn
         if enemy_hp > 0:
-            player_hp = player_defend(enemy_name, enemy_attack, player_ac, roll_dice(6, 0), player_hp)
+            roll = roll_dice(20, enemy_attack)
+            if roll >= player_ac:
+                damage = roll_dice(6, 0)
+                player_hp -= damage
+                print(f"The {enemy_name} hits you for {damage} damage!")
+            else:
+                print(f"The {enemy_name} misses!")
 
-        input("Press Enter to continue...")
-        clear_screen()
-    
+        # reset defend bonus
+        if choice == "2":
+            player_ac -= 2
+
+        input("\nPress Enter to continue...")
+
+    # combat result
     if player_hp > 0:
-        print(f"{Fore.GREEN}Victory! You defeated the {enemy_name}!{Style.RESET_ALL}")
-        return True
+        print(f"{Fore.CYAN}You defeated the {enemy_name}!{Style.RESET_ALL}")
+        return True, player_hp
     else:
-        print(f"{Fore.RED}You have been defeated...{Style.RESET_ALL}")
-        return False
+        print(f"{Fore.RED}You were slain by the {enemy_name}...{Style.RESET_ALL}")
+        return False, player_hp
 
-def main() : 
+def main():
     intro()
     input("Press Enter to start your adventure...")
     clear_screen()
-    
+
+    # ----- CHARACTER CREATION -----
     Player_Name = input("Enter your character's name: ")
     clear_screen()
-    
+
     while True:
-        Player_Class = input(f"Enter your character's class \n"
-            f"{Fore.GREEN}1. Ranger{Style.RESET_ALL}\n"
-            f"{Fore.RED}2. Fighter{Style.RESET_ALL}\n"
-            f"{Fore.BLUE}3. Wizard{Style.RESET_ALL}\n")
-        while Player_Class != "1" and Player_Class != "2" and Player_Class != "3" :
-            Player_Class = input("Invalid class. Please choose from:\n" 
-            f"{Fore.GREEN}1. Ranger{Style.RESET_ALL} \n" \
-            f"{Fore.RED}2. Fighter{Style.RESET_ALL} \n" \
-            f"{Fore.MAGENTA}3. Wizard{Style.RESET_ALL}\n")
-            time.sleep(4)
-            clear_screen()
-        
+        Player_Class = input(
+            "Choose your class:\n"
+            "1. Ranger\n"
+            "2. Fighter\n"
+            "3. Wizard\n"
+        )
+
         if Player_Class == "1":
             player_hp = 10
             Attack_Modifier = 2
             Player_AC = 14
             Dexterity = 3
             Player_Class = "Ranger"
+            break
         elif Player_Class == "2":
             player_hp = 12
             Attack_Modifier = 3
             Player_AC = 16
             Dexterity = 2
             Player_Class = "Fighter"
-        elif Player_Class == "3":
-            player_hp = 12
-            Attack_Modifier = 3
-            Player_AC = 16
-            Dexterity = 2
-            Player_Class = "Wizard"
-        break
-
-    
-    print(f"Welcome, {Player_Name} the {Player_Class}!")
-    print(f"Health: {player_hp}, Attack Modifier: {Attack_Modifier}, Armor Class: {Player_AC}, Dexterity: {Dexterity}")
-    time.sleep(3)
-    clear_screen()
-    typewriter("""The rain is the first thing you feel—cold, relentless, and smelling of ancient pine.
-
-You are lying on a bed of damp ferns in the heart of the Whispering Woods. Above, the canopy is so thick that the midday sun is reduced to mere threads of grey light. Your head throbs with the rhythm of a war drum, and your memories are shrouded in a thick, magical fog. The last thing you remember was a flash of violet light and the sound of breaking glass.
-
-"Careful there," a voice calls out.
-
-Through the mist, an old traveler sits by a small, sputtering campfire a few yards away. He is sharpening a rusted dagger, the metallic shing-shing echoing through the trees.
-
-"The goblins usually pick these woods clean by sundown," the old man says without looking up. "You’re lucky I found you first. You’ve got the look of someone who’s traveled far, though your gear has seen better days."
-
-He finally turns to look at you, his eyes milky with age but sharp with curiosity. He gestures to a tattered scroll lying near your hand.
-
-"That parchment there... it has a seal I haven't seen in fifty years. I can't read the script, but I assume it belongs to you.""")
-    choice_1 = input("""What Would you like to do? \n
-    1. Ask the old man about the scroll. \n
-    2. Inquire about your current location and situation. \n
-    3. Leave for the woods \n""")
-    if int(choice_1) != 1 and int(choice_1) != 2 and int(choice_1) != 3 :
-        print("Invalid choice. Please select 1, 2, or 3.")
-
-    while int(choice_1) == 1 :
-        clear_screen()
-        typewriter(f"""You pick up the scroll, its edges frayed and the seal cracked. "This looks important," you say, as you read it you realize its a Fire ball spell scroll """)
-        typewriter(f"""Would Like to keep it ? Y/N \n""")
-        scroll_choice = input()
-        
-        if scroll_choice.upper() == "Y" : 
-            typewriter("You carefully tuck the scroll into your pack, feeling a strange warmth emanating from it.")
-            inventory.append({"name": "Fireball Spell Scroll", "quantity": 1})
-            time.sleep(3)
-            clear_screen()
-            choice_1 = input("""What Would you like to do now? \n
-            2. Inquire about your current location and situation. \n
-            3. Leave for the woods \n""")
-        elif scroll_choice.upper() == "N" : 
-            typewriter("You decide to leave the scroll behind, unsure of its significance.")
-            time.sleep(4)
-            clear_screen()
-            
-            choice_1 = input("""What Would you like to do now? \n
-            2. Inquire about your current location and situation. \n
-            3. Leave for the woods \n""")
-
-    while True and int(choice_1) == 2:
-        clear_screen()
-        typewriter(f"""You look around, taking in the dense foliage and the towering trees. "Where am I?" you ask the old man. He sighs, "You're in the Whispering Woods, a place of both wonder and danger. As for how you got here, I can't say. But you look like you've been through quite an ordeal." """)
-        time.sleep(4)
-        choice_1 = input("""What Would you like to do now? \n
-        A. Ask the old man about the scroll. \n B. Leave for the woods \n""").upper()
-        if choice_1 == "A" :
-            choice_1 = 1
             break
-        clear_screen()
-    while  int(choice_1) == 3 :
-        clear_screen()
-        typewriter("You decide to leave the safety of the campfire and venture into the woods.")
-        time.sleep(3)
-        clear_screen()
-        typewriter("As you walk deeper into the forest, you hear a growl...")
-        winsound.PlaySound("Monster.wav", winsound.SND_FILENAME)
+        elif Player_Class == "3":
+            player_hp = 8
+            Attack_Modifier = 4
+            Player_AC = 12
+            Dexterity = 1
+            Player_Class = "Wizard"
+            break
+        else:
+            print("Invalid choice.")
 
-        
+    clear_screen()
+    print(f"Welcome, {Player_Name} the {Player_Class}!")
+    print(f"HP: {player_hp} | ATK: {Attack_Modifier} | AC: {Player_AC}")
+    input("\nPress Enter to continue...")
+    clear_screen()
 
+    # ----- INTRO STORY -----
+    typewriter(
+        "You awaken in the Whispering Woods. Rain falls softly as an old man sits by a campfire.\n"
+        "A strange scroll lies near your hand..."
+    )
 
-        time.sleep(4)
-        clear_screen()
-        
-        # Random enemy 
-       
-        enemy = random.choice(["Goblin", "Orc"])
-        enemy_hp = 15 if enemy == "Goblin" else 20 
-        enemy_attack = 1 if enemy == "Goblin" else 2
-        enemy_ac = 12 if enemy == "Goblin" else 13
-        
-        typewriter(f"A wild {enemy} appears!")
-        clear_screen()
-        
-        victory = combat(Player_Name, player_hp, Attack_Modifier, Player_AC, enemy, enemy_hp, enemy_attack, enemy_ac)
-        
-        if victory:
-            choice_2 = 365
-            choice_1 = 365
-            add_item("Gold Coins", random.randint(5, 15))
-            add_item("Map",1)
-            typewriter("You loot the creature and find some gold!")
-            typewriter(f"In the {enemy} pocket you find a mysterious map , would you like to examine it?")
-            choice_2 = input("Y/N \n")
-            if choice_2.upper() == "Y" : 
-                typewriter("You unfold the map, its surface worn and creased. The ink has faded in places, but you can still make out a path leading to a marked location deep within the Whispering Woods. A red 'X' indicates a spot labeled 'Ancient Ruins'.")
-                time.sleep(5)
-                print(f"""+--------------------------------------------------------------------------------+
-    | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |
-    | ~                               THE WESTERN SEA                               ~ |
-    | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |
-    |                                                                                |
-    |   ^^^^   ^^^^^^^^      ^^^^^^^^        ^^^^^^^^        ^^^^                    |
-    |  ^^^^^^ ^ DRAGON ^    ^ STORM   ^      ^ FROST   ^    ^^^^^                   |
-    | ^^^  ^^^^ MOUNTS ^^^^^^ PEAKS   ^^^^^^^^ PEAKS   ^^^^^^  ^^^                  |
-    |      ||        ||          ||              ||         ||                     |
-    |      ||        ||          ||              ||         ||                     |
-    |  ====||========||==========||==============||=========||================     |
-    |      ||        ||             RIVER OF SILVER            ||                   |
-    |      ||        ||          ||              ||         ||                     |
-    |                                                                                |
-    |        +----------------------------+       +---------------------+           |
-    |        |        ELDER FOREST         |       |    NORTHERN WOODS    |           |
-    |        |  ######   ######   ######   |       |  #####  #####  #### |           |
-    |        |  ######   ######   ######   |       |  #####  #####  #### |           |
-    |        +----------------------------+       +---------------------+           |
-    |                     |                              |                            |
-    |                     |                              |                            |
-    |              .-----------------.           .-----------------.                 |
-    |             |     LOST RUINS     |         |  WATCHTOWER     |                |
-    |             |     of Valen       |         |  OUTPOST        |                |
-    |              '-----------------'           '-----------------'                |
-    |                                                                                |
-    |   ~~~~~~{Fore.RED}     X  {Style.RESET_ALL}       ~~~~~~                       |
-    |  ~ SWAMP ~                                        ~ MARSH ~                    |
-    |   ~~~~~~                                        ~~~~~~                        |
-    |                                                                                |
-    | :::::::::::::::::::::::::::: DESERT OF ASH ::::::::::::::::::::::::::::::::: |
-    |                                                                                |
-    |   [O]      [O]      [O]        [O]        [O]        [O]                       |
-    |  Camp     Camp     Camp       Camp       Camp       Camp                      |
-    |                                                                                |
-    |                    +------+            +----------+                           |
-    |                    | PORT |            |  DOCKS   |                           |
-    |                    +------+            +----------+                           |
-    +--------------------------------------------------------------------------------+
-    """)
-            elif choice_2.upper() == "N" : 
-                typewriter("You decide to keep the map folded away for now, unsure of where it might lead.")
-                time.sleep(4)
-                clear_screen()
-            if choice_2.upper() == "Y" :
-                choice_3 = typewriter("Would You like to head towards the Ancient Ruins marked on the map?")
-            if choice_3 == "Y" :
-                typewriter("You set off towards the Ancient Ruins, the map guiding your way through the dense forest.")
-                time.sleep(4)
-                clear_screen()
-                typewriter("As you approach the ruins,You cant shake the feeling something is following you suddenly you here the noise of twigs snapping behind you...")
-                winsound.PlaySound("SNAP.wav", winsound.SND_FILENAME)
-                time.sleep()
-                combat(Player_Name, player_hp, Attack_Modifier, Player_AC, "Bandit", 18, 2, 14)
-                winsound.PlaySound("WHISTLE.wav", winsound.SND_FILENAME)
-                
-            elif choice_3 == "N" :
-                typewriter("You decide to stay put for now, contemplating your next move.")
-                time.sleep(4)
-                clear_screen()
-    else:
+    has_scroll = False
+
+    # ----- CAMP LOOP -----
+    while True:
+        choice = input(
+            "\nWhat do you do?\n"
+            "1. Ask about the scroll\n"
+            "2. Ask where you are\n"
+            "3. Leave the camp\n"
+        )
+
+        # ----- SCROLL -----
+        if choice == "1":
+            typewriter("The old man eyes the scroll carefully. 'Powerful magic,' he mutters.")
+            keep = input("Do you keep the scroll? (Y/N): ").upper()
+
+            if keep == "Y" and not has_scroll:
+                add_item("Fireball Spell Scroll", 1)
+                has_scroll = True
+                typewriter("You place the scroll into your pack.")
+            else:
+                typewriter("You decide to leave it for now.")
+
+        # ----- LOCATION -----
+        elif choice == "2":
+            typewriter(
+                "'You are in the Whispering Woods,' the old man says.\n"
+                "'Few who enter find their way out unscathed.'"
+            )
+
+        # ----- LEAVE CAMP -----
+        elif choice == "3":
+            typewriter("You step away from the fire and into the dark woods...")
+            play_sound("Monster.wav")
+            break
+
+        else:
+            print("Invalid choice.")
+
+    clear_screen()
+
+    # ----- FIRST COMBAT -----
+    enemy = random.choice(["Goblin", "Orc"])
+    enemy_hp = 15 if enemy == "Goblin" else 20
+    enemy_attack = 1 if enemy == "Goblin" else 2
+    enemy_ac = 12 if enemy == "Goblin" else 13
+
+    victory, player_hp = combat(
+        Player_Name,
+        player_hp,
+        Attack_Modifier,
+        Player_AC,
+        enemy,
+        enemy_hp,
+        enemy_attack,
+        enemy_ac
+    )
+
+    if not victory:
         death()
-        exit()
-           
-         
-        
-        typewriter("After your encounter, you take a moment to check your inventory.")        
-        print("Your current inventory:\n")
-        display_inventory()
+
+    # ----- LOOT + MAP -----
+    add_item("Gold Coins", random.randint(5, 15))
+    add_item("Map", 1)
+
+    typewriter("Searching the body, you find gold and a strange map.")
+
+    look = input("Examine the map? (Y/N): ").upper()
+    if look == "Y":
+        typewriter("The map marks a place called the Ancient Ruins.")
+
+        go = input("Travel to the Ancient Ruins? (Y/N): ").upper()
+        if go == "Y":
+            typewriter("You follow the map deeper into the forest...")
+            play_sound("SNAP.wav")
+
+            # ----- BANDIT FIGHT -----
+            victory, player_hp = combat(
+                Player_Name,
+                player_hp,
+                Attack_Modifier,
+                Player_AC,
+                "Bandit",
+                18,
+                2,
+                14
+            )
+
+            if not victory:
+                death()
+
+            typewriter("The bandit falls. The ruins await beyond...")
+
+    # ----- END CHECK -----
+    typewriter("You take a moment to check your belongings.")
+    display_inventory()
+    typewriter("To be continued...")
 
 
 if __name__ == "__main__":   
