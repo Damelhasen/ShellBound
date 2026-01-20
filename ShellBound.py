@@ -389,10 +389,11 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
     3. Leave for the woods \n""")
     if int(choice_1) != 1 and int(choice_1) != 2 and int(choice_1) != 3 :
         print("Invalid choice. Please select 1, 2, or 3.")
+
     while int(choice_1) == 1 :
         clear_screen()
         typewriter(f"""You pick up the scroll, its edges frayed and the seal cracked. "This looks important," you say, as you read it you realize its a Fire ball spell scroll """)
-        scroll_choice = input(typewriter(f"""Would Like to keep it ? Y/N \n"""))
+        scroll_choice = input(typewriter(f"Would Like to keep it ? Y/N 00\n"))
         
         if scroll_choice.upper() == "Y" : 
             typewriter("You carefully tuck the scroll into your pack, feeling a strange warmth emanating from it.")
