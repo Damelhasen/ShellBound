@@ -9,7 +9,7 @@ import os
 from colorama import Fore, Style
 import winsound
 
-winsound.PlaySound("WHISTLE.mp3", winsound.SND_FILENAME)
+
 
 # Variables
 
