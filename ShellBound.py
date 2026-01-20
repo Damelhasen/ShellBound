@@ -12,13 +12,7 @@ winsound.PlaySound("Whistle.wav", winsound.SND_FILENAME)
 
 # Variables
 
-Player_Name = "John"
-Player_Class = 0
-player_hp = 0
-Attack_Modifier = 0
-Player_AC = 0
-Dexterity = 0
-Classes = {"Ranger","Fighter","Wizard"}
+
 def death():
     # save inventory to txt file
     with open("Savefile.txt", "w") as file:
@@ -123,7 +117,7 @@ def player_defend(attcker_name:str, attack_modifier:int, defender_ac:int, damage
         print(f"{attcker_name} hits {Player_Name} for {damage_roll} damage!")
     else : 
         print(f"{attcker_name} misses {Player_Name}!")
-
+    return player_hp
 
 inventory = [
     {"name": "Wool  Shirt", "quantity": 1},
@@ -188,10 +182,6 @@ def display_enemy(enemy_name, enemy_health):
         """)
 
 def combat(player_name, player_hp, player_attack, player_ac, enemy_name, enemy_hp, enemy_attack, enemy_ac):
-    
-    
-    player_hp = player_hp
-    
     print(f"\n{Fore.RED}=== COMBAT START ==={Style.RESET_ALL}")
     
     while player_hp > 0 and enemy_hp > 0:
@@ -201,7 +191,6 @@ def combat(player_name, player_hp, player_attack, player_ac, enemy_name, enemy_h
         action = input("1. Attack\n2. Defend\n3. Run away \nChoose one: ").strip()
         
         if action == "1":
-            # Player 
             attack_roll = roll_dice(20, player_attack)
             if attack_roll >= enemy_ac:
                 damage = roll_dice(6, 0)
@@ -211,16 +200,17 @@ def combat(player_name, player_hp, player_attack, player_ac, enemy_name, enemy_h
             else:
                 print(f"{Fore.YELLOW}[Roll: {attack_roll}] You miss!{Style.RESET_ALL}")
                 time.sleep(2)
+                
         elif action == "2":
             print(f"{Fore.BLUE}You brace for impact...{Style.RESET_ALL}")
             time.sleep(2)
-        
+            
         clear_screen()
         
-        # Enemy attacks 
+        # Enemy attacks
         if enemy_hp > 0:
-            player_defend(enemy_name, enemy_attack, player_ac, roll_dice(6, 0))
-        
+            player_hp = player_defend(enemy_name, enemy_attack, player_ac, roll_dice(6, 0), player_hp)  # Capture the return value
+            
         input("Press Enter to continue...")
         clear_screen()
     
@@ -229,9 +219,21 @@ def combat(player_name, player_hp, player_attack, player_ac, enemy_name, enemy_h
         return True
     else:
         print(f"{Fore.RED}You have been defeated...{Style.RESET_ALL}")
+        death()
         return False
+        
+        ######Variables#####
+Player_Name = "John"
+Player_Class = 0
+player_hp = 0
+Attack_Modifier = 0
+Player_AC = 0
+Dexterity = 0
+Classes = {"Ranger","Fighter","Wizard"}
 
-def main() : 
+
+def main() :
+    clear_screen() 
     intro()
     input("Press Enter to start your adventure...")
     clear_screen()
@@ -253,19 +255,19 @@ def main() :
             clear_screen()
         
         if Player_Class == "1":
-            player_hp = 10
+            player_hp = 20
             Attack_Modifier = 2
             Player_AC = 14
             Dexterity = 3
             Player_Class = "Ranger"
         elif Player_Class == "2":
-            player_hp = 12
+            player_hp = 25
             Attack_Modifier = 3
             Player_AC = 16
             Dexterity = 2
             Player_Class = "Fighter"
         elif Player_Class == "3":
-            player_hp = 12
+            player_hp = 15
             Attack_Modifier = 3
             Player_AC = 16
             Dexterity = 2
@@ -290,10 +292,10 @@ Through the mist, an old traveler sits by a small, sputtering campfire a few yar
 He finally turns to look at you, his eyes milky with age but sharp with curiosity. He gestures to a tattered scroll lying near your hand.
 
 "That parchment there... it has a seal I haven't seen in fifty years. I can't read the script, but I assume it belongs to you.""")
-    choice_1 = input("""What Would you like to do? \n
+    choice_1 = int(input("""What Would you like to do? \n
     1. Ask the old man about the scroll. \n
     2. Inquire about your current location and situation. \n
-    3. Leave for the woods \n""")
+    3. Leave for the woods \n"""))
     if int(choice_1) != 1 and int(choice_1) != 2 and int(choice_1) != 3 :
         print("Invalid choice. Please select 1, 2, or 3.")
     while int(choice_1) == 1 :
@@ -355,8 +357,13 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         
         if victory:
             add_item("Gold Coins", random.randint(5, 15))
+            typewriter("After your encounter, you take a moment to check your inventory.")        
+            print("Your current inventory:\n")
+            display_inventory()
             add_item("Map",1)
             typewriter("You loot the creature and find some gold!")
+            typewriter("In the Goblins pocket you find a mysterious map , would you like to examine it?")
+            choice_2 = input("Y/N \n")
             break
         else:
            death()
@@ -365,12 +372,10 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
            
          
         
-        typewriter("After your encounter, you take a moment to check your inventory.")        
-        print("Your current inventory:\n")
-        display_inventory()
+       
 
-    typewriter("In the Goblins pocket you find a mysterious map , would you like to examine it?")
-    choice_2 = input("Y/N \n")
+    
+    
     if choice_2.upper() == "Y" : 
         typewriter("You unfold the map, its surface worn and creased. The ink has faded in places, but you can still make out a path leading to a marked location deep within the Whispering Woods. A red 'X' indicates a spot labeled 'Ancient Ruins'.")
         time.sleep(2)
@@ -414,19 +419,16 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
 |                    +------+            +----------+                           |
 +--------------------------------------------------------------------------------+
 """)
-    elif choice_2.upper() == "N" : 
-        typewriter("You decide to keep the map folded away for now, unsure of where it might lead.")
-        time.sleep(4)
-        clear_screen()
+  
     if choice_2.upper() == "Y" :
-        choice_3 = typewriter("Would You like to head towards the Ancient Ruins marked on the map?")
-    if choice_3 == "Y" :
+        choice_3 = typewriter(input("Would You like to head towards the Ancient Ruins marked on the map?"))
+    if choice_3 == "Y" or "y" :
         typewriter("You set off towards the Ancient Ruins, the map guiding your way through the dense forest.")
         time.sleep(4)
         clear_screen()
         typewriter("As you approach the ruins,You cant shake the feeling something is following you suddenly you here the noise of twigs snapping behind you...")
         winsound.PlaySound("SNAP.wav", winsound.SND_FILENAME)
-        time.sleep()
+        time.sleep(3)
         combat(Player_Name, player_hp, Attack_Modifier, Player_AC, "Bandit", 18, 2, 14)
         winsound.PlaySound("WHISTLE.wav", winsound.SND_FILENAME)
         
