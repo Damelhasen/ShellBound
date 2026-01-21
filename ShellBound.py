@@ -19,7 +19,17 @@ Player_AC = 0
 Dexterity = 0
 Classes = {"Ranger","Fighter","Wizard"}
 
-
+def outro () :
+    clear_screen()
+    
+    typewriter("""-+-+-+-+-+-+-+-+-+-THE END+-+-+-+-+-+-+-+-+--""")
+    time.sleep(1)
+    typewriter("Game Desing and Development by : Johan Sheby \n Chriss John Francis \n Ayham Al-Dibeh")
+    time.sleep(2)
+    typewriter("+-+-+-+-+-+-+-+-+-Specisl Thanks To+-+-+-+-+-+-+-+-+--")
+    typewriter("        Bazhan \n       Linus Torvals")
+    winsound.PlaySound("Outro_Music.wav", winsound.SND_FILENAME)
+         
 
 def play_sound(file):
         winsound.PlaySound(file, winsound.SND_FILENAME)
@@ -29,6 +39,7 @@ def death():
     with open("Savefile.txt", "w") as file:
         for item in inventory:
             file.write(f"{item['name']},{item['quantity']}\n")
+    outro()
 
     typewriter(f"""Game Over. Your adventure ends here... \n \
                        ______
@@ -236,7 +247,8 @@ def combat(player_name, player_hp, player_attack, player_ac, enemy_name, enemy_h
         print(f"{Fore.RED}You have been defeated...{Style.RESET_ALL}")
         return False
 
-def main() : 
+def main() :
+   
     intro()
     input("Press Enter to start your adventure...")
     clear_screen()
@@ -432,6 +444,40 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
                 typewriter("You decide to stay put for now, contemplating your next move.")
                 time.sleep(4)
                 clear_screen()
+                typewriter(f"""The enemy fell into the ferns, blood soaking the forest floor. {Player_Class} stood still, listening.
+
+The birdsong looped.
+
+A pale symbol hovered between the trees.
+
+`>>>`
+
+They ran. Legs moved without burn, without breath.
+
+Too clean.
+
+The forest stuttered as they passed, trunks scrolling like lines of output. The body unraveled at the roots, dissolving into green text.
+
+`NameError: enemy is not defined`
+
+Wind repeated. Footsteps executed.
+
+`while {Player_Class}.running:`
+
+That was the moment of realization.
+
+They were not choosing to run.
+
+They *were* running.
+
+Above the canopy, a cursor blinked.
+
+Waiting for input.
+    """)
+        input("Press Enter to continue...")
+        time.sleep(2)
+        outro()
+
     else:
         death()
         exit()
