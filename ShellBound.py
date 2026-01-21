@@ -340,10 +340,10 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         clear_screen()
         typewriter(f"""You look around, taking in the dense foliage and the towering trees. "Where am I?" you ask the old man. He sighs, "You're in the Whispering Woods, a place of both wonder and danger. As for how you got here, I can't say. But you look like you've been through quite an ordeal." """)
         time.sleep(4)
-        choice_1 = input("""What Would you like to do now?\nA. Ask the old man about the scroll.\nB. Leave for the woods.\n""").upper()
-        if choice_1 == "A" :
+        choice_1 = input("""What Would you like to do now?\n 1. Ask the old man about the scroll.\n 2. Leave for the woods.\n""").upper()
+        if choice_1 == 1 :
             choice_1 = 1
-            break
+            
         clear_screen()
     while  int(choice_1) == 3 :
         clear_screen()
