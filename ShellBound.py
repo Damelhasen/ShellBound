@@ -50,6 +50,7 @@ def find_item(item_name):
     return False  
 def play_sound(file):
         winsound.PlaySound(file, winsound.SND_FILENAME)
+play_sound("WHISTLE.wav")
 
 def death():
     # save inventory to txt file
