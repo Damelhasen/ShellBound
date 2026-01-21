@@ -26,7 +26,7 @@ def outro () :
     time.sleep(1)
     typewriter("Game Desing and Development by : Johan Sheby \n Chriss John Francis \n Ayham Al-Dibeh")
     time.sleep(2)
-    typewriter("+-+-+-+-+-+-+-+-+-Specisl Thanks To+-+-+-+-+-+-+-+-+--")
+    typewriter("+-+-+-+-+-+-+-+-+-Special Thanks To+-+-+-+-+-+-+-+-+--")
     typewriter("        Bazhan \n       Linus Torvals")
     winsound.PlaySound("Outro_Music.wav", winsound.SND_FILENAME)
          
