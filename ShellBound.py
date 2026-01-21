@@ -458,11 +458,11 @@ Too clean.
 
 The forest stuttered as they passed, trunks scrolling like lines of output. The body unraveled at the roots, dissolving into green text.
 
-`NameError: enemy is not defined`
+{Fore.Red}NameError: enemy is not defined{Fore.RESET}
 
 Wind repeated. Footsteps executed.
 
-`while {Player_Class}.running:`
+ {Fore.MAGENTA}while {Player_Class}.running:{Fore.RESET}
 
 That was the moment of realization.
 
