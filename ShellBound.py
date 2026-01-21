@@ -28,8 +28,7 @@ def outro () :
     time.sleep(2)
     typewriter("+-+-+-+-+-+-+-+-+-Special Thanks To+-+-+-+-+-+-+-+-+--")
     typewriter("        Bazhan \n       Linus Torvals")
-    winsound.PlaySound("Outro_Music.wav", winsound.SND_FILENAME)
-         
+    winsound.PlaySound("Outro_Music.wav", winsound.SND_FILENAME)         
 
 def play_sound(file):
         winsound.PlaySound(file, winsound.SND_FILENAME)
