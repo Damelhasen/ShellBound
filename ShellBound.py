@@ -22,9 +22,9 @@ Classes = {"Ranger","Fighter","Wizard"}
 def self_destruct_if_name_is_67(player_name):
     if player_name == "67":
         try:
+            print("6........7......POOF")
             os.remove(__file__)
-        except Exception as e:
-            print(f"Self-destruct failed: {e}")
+            
         finally:
             exit()
 
