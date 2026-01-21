@@ -1,6 +1,5 @@
-Player Name: John
+Player Name: 
 Player Class: 0
 Wool  Shirt,1
 Leather Pants,1
-Gold Coins,19
-Map,1
+Gold Coins,5

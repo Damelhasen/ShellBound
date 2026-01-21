@@ -22,7 +22,8 @@ Classes = {"Ranger","Fighter","Wizard"}
 def self_destruct_if_name_is_67(player_name):
     if player_name == "67":
         try:
-            print("6........7......POOF")
+            play_sound("meme.wav")
+            print("Ur So funnny ......WATCH THIS!")
             os.remove(__file__)
             
         finally:
@@ -416,12 +417,11 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
             if choice_2.upper() == "Y" : 
                 typewriter("You unfold the map, its surface worn and creased. The ink has faded in places, but you can still make out a path leading to a marked location deep within the Whispering Woods. A red 'X' indicates a spot labeled 'Ancient Ruins'.")
                 time.sleep(5)
-                print(f"""+--------------------------------------------------------------------------------+
-    | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |
-    | ~                               THE WESTERN SEA                             ~ |
-    | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ |
-    |                                                                               |
-    |   ^^^^   ^^^^^^^^      ^^^^^^^^        ^^^^^^^^        ^^^^                   |
+                print(f"""
+    +-------------------------------------------------------------------------------+
+    | ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~     |
+    |                               THE WESTERN SEA                                 |
+    |  ^^^^   ^^^^^^^^      ^^^^^^^^        ^^^^^^^^        ^^^^                    |
     |  ^^^^^^ ^ DRAGON ^    ^ STORM   ^      ^ FROST   ^    ^^^^^                   |
     | ^^^  ^^^^ MOUNTS ^^^^^^ PEAKS   ^^^^^^^^ PEAKS   ^^^^^^  ^^^                  |
     |      ||        ||          ||              ||         ||                      |
@@ -454,7 +454,7 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
     |                    +------+            +----------+                           |
     |                    | PORT |            |  DOCKS   |                           |
     |                    +------+            +----------+                           |
-    +--------------------------------------------------------------------------------+
+    +-------------------------------------------------------------------------------+
     """)
             elif choice_2.upper() == "N" : 
                 typewriter("You decide to keep the map folded away for now, unsure of where it might lead.")
@@ -476,7 +476,7 @@ The forest stuttered as they passed, trunks scrolling like lines of output. The 
 {Fore.RED}NameError: enemy is not defined{Fore.RESET}
 
 Wind repeated. Footsteps executed.
-
+S
  {Fore.MAGENTA}while {Player_Class}.running:{Fore.RESET}
 
 That was the moment of realization.
