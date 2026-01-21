@@ -39,8 +39,6 @@ def death():
     with open("Savefile.txt", "w") as file:
         for item in inventory:
             file.write(f"{item['name']},{item['quantity']}\n")
-    outro()
-
     typewriter(f"""Game Over. Your adventure ends here... \n \
                        ______
         .-"      "-.
@@ -56,6 +54,7 @@ def death():
          `--------` \n
     {Player_Name} the {Player_Class} has fallen in the Whispering Woods.
                        """)
+    outro()
 
     exit()
 
@@ -245,6 +244,7 @@ def combat(player_name, player_hp, player_attack, player_ac, enemy_name, enemy_h
         return True
     else:
         print(f"{Fore.RED}You have been defeated...{Style.RESET_ALL}")
+        death()
         return False
 
 def main() :
