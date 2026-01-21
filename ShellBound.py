@@ -24,11 +24,11 @@ def outro () :
     
     typewriter("""-+-+-+-+-+-+-+-+-+-THE END+-+-+-+-+-+-+-+-+--""")
     time.sleep(1)
-    winsound.PlaySound("Outro_Music.wav", winsound.SND_FILENAME)
-    typewriter("Game Desing and Development by : Johan Sheby \n Chriss John Francis \n Ayham Al-Dibeh")
+    typewriter("Game Designing and Development by : Johan Sheby \n Chriss John Francis \n Ayham Al-Dibeh")
     time.sleep(2)
     typewriter("+-+-+-+-+-+-+-+-+-Special Thanks To+-+-+-+-+-+-+-+-+--")
     typewriter("        Bazhan \n       Linus Torvals")
+    winsound.PlaySound("Outro_Music.wav", winsound.SND_FILENAME)
          
 
 def play_sound(file):
