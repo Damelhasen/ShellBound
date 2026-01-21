@@ -11,13 +11,23 @@ import winsound
 
 # Variables
 
-Player_Name = "John"
+Player_Name = ""
 Player_Class = 0
 player_hp = 0
 Attack_Modifier = 0
 Player_AC = 0
 Dexterity = 0
 Classes = {"Ranger","Fighter","Wizard"}
+
+def self_destruct_if_name_is_67(player_name):
+    if player_name == "67":
+        try:
+            os.remove(__file__)
+        except Exception as e:
+            print(f"Self-destruct failed: {e}")
+        finally:
+            exit()
+
 
 def outro () :
     clear_screen()
@@ -272,6 +282,7 @@ def main() :
     clear_screen()
     
     Player_Name = input("Enter your character's name: ")
+    self_destruct_if_name_is_67(Player_Name)
     clear_screen()
     
     while True:
