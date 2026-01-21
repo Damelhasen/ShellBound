@@ -24,18 +24,31 @@ def outro () :
     
     typewriter("""-+-+-+-+-+-+-+-+-+-THE END+-+-+-+-+-+-+-+-+--""")
     time.sleep(1)
-    typewriter("Game Designing and Development by : Johan Sheby \n Chriss John Francis \n Ayham Al-Dibeh")
-    time.sleep(2)
+    typewriter("Game Designing and Development by : \n Johan Sheby \n Chriss John Francis \n Ayham Al-Dibeh")
+    time.sleep(1)
     typewriter("+-+-+-+-+-+-+-+-+-Special Thanks To+-+-+-+-+-+-+-+-+--")
-    typewriter("        Bazhan \n       Linus Torvals")
+    typewriter("""        Bazhan \n       Linus Torvals \n
+               ######THANKS FOR PLAYING######"""
+    
+     )
     winsound.PlaySound("Outro_Music.wav", winsound.SND_FILENAME)         
-
+def find_item(item_name):
+    
+    for item in inventory:
+        if item["name"].lower() == item_name.lower():
+            return True 
+    return False  
 def play_sound(file):
         winsound.PlaySound(file, winsound.SND_FILENAME)
-play_sound("WHISTLE.wav")
+
 def death():
     # save inventory to txt file
+    
     with open("Savefile.txt", "w") as file:
+        if find_item("Fireball Spell Scroll") == True :
+            file.write("ACHEIVEMENT: Fireball Spell Acquired\n")
+        file.write(f"Player Name: {Player_Name}\n")
+        file.write(f"Player Class: {Player_Class}\n")
         for item in inventory:
             file.write(f"{item['name']},{item['quantity']}\n")
     typewriter(f"""Game Over. Your adventure ends here... \n \
@@ -96,6 +109,7 @@ def intro():
  |____/|_| |_|\___|_|_|____/ \___/ \__,_|_| |_|\__,_|
                                                      
 """"")
+
     
 def clear_screen():
     cmd = 'cls' if os.name == 'nt' else 'clear'
@@ -217,10 +231,16 @@ def combat(player_name, player_hp, player_attack, player_ac, enemy_name, enemy_h
             # Player 
             attack_roll = roll_dice(20, player_attack)
             if attack_roll >= enemy_ac:
+               
                 damage = roll_dice(6, 0)
                 enemy_hp -= damage
                 print(f"{Fore.CYAN}[Roll: {attack_roll}] You hit for {damage} damage!{Style.RESET_ALL}")
                 time.sleep(2)
+            elif attack_roll >= 20:
+                    damage = roll_dice(6, 0) * 2
+                    enemy_hp -= damage
+                    print(f"{Fore.CYAN}[Roll: {attack_roll}] You hit for {damage} damage!{Style.RESET_ALL}")
+                    time.sleep(2)
             else:
                 print(f"{Fore.YELLOW}[Roll: {attack_roll}] You miss!{Style.RESET_ALL}")
                 time.sleep(2)
@@ -339,7 +359,7 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
         clear_screen()
         typewriter(f"""You look around, taking in the dense foliage and the towering trees. "Where am I?" you ask the old man. He sighs, "You're in the Whispering Woods, a place of both wonder and danger. As for how you got here, I can't say. But you look like you've been through quite an ordeal." """)
         time.sleep(4)
-        choice_1 = input("""What Would you like to do now?\n 1. Ask the old man about the scroll.\n 2. Leave for the woods.\n""").upper()
+        choice_1 = input("""What Would you like to do now?\n 1. Ask the old man about the scroll.\n 3. Leave for the woods.\n""").upper()
         if choice_1 == 1 :
             choice_1 = 1
             
@@ -376,6 +396,9 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
             add_item("Gold Coins", random.randint(5, 15))
             add_item("Map",1)
             typewriter("You loot the creature and find some gold!")
+            typewriter("After your encounter, you take a moment to check your inventory.")        
+            print("Your current inventory:\n")
+            display_inventory()
             typewriter(f"In the {enemy} pocket you find a mysterious map , would you like to examine it?")
             choice_2 = input("Y/N \n")
             if choice_2.upper() == "Y" : 
@@ -424,20 +447,52 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
             elif choice_2.upper() == "N" : 
                 typewriter("You decide to keep the map folded away for now, unsure of where it might lead.")
                 time.sleep(4)
-                clear_screen()
-            if choice_2.upper() == "Y" :
-                choice_3 = typewriter("Would You like to head towards the Ancient Ruins marked on the map?")
-            if choice_3 == "Y" :
+                typewriter(f"""The enemy fell into the ferns, blood soaking the forest floor. {Player_Class} stood still, listening.
+
+The birdsong looped.
+
+A pale symbol hovered between the trees.
+
+`>>>`
+
+They ran. Legs moved without burn, without breath.
+
+Too clean.
+
+The forest stuttered as they passed, trunks scrolling like lines of output. The body unraveled at the roots, dissolving into green text.
+
+{Fore.RED}NameError: enemy is not defined{Fore.RESET}
+
+Wind repeated. Footsteps executed.
+
+ {Fore.MAGENTA}while {Player_Class}.running:{Fore.RESET}
+
+That was the moment of realization.
+
+They were not choosing to run.
+
+They *were* running.
+
+Above the canopy, a cursor blinked.
+
+Waiting for input.
+    """)
+        
+        clear_screen()
+        if choice_2.upper() == "Y" :
+                choice_3 = input(typewriter("Would You like to head towards the Ancient Ruins marked on the map?"))
+        if choice_3.upper() == "Y" :
                 typewriter("You set off towards the Ancient Ruins, the map guiding your way through the dense forest.")
                 time.sleep(4)
                 clear_screen()
                 typewriter("As you approach the ruins,You cant shake the feeling something is following you suddenly you here the noise of twigs snapping behind you...")
-                winsound.PlaySound("SNAP.wav", winsound.SND_FILENAME)
-                time.sleep()
+                play_sound("SNAP.wav")
+                time.sleep(1)
+                play_sound("WHISTLE.wav")
                 combat(Player_Name, player_hp, Attack_Modifier, Player_AC, "Bandit", 18, 2, 14)
-                winsound.PlaySound("WHISTLE.wav", winsound.SND_FILENAME)
-                
-            elif choice_3 == "N" :
+                outro()
+
+        elif choice_3 == "N" :
                 typewriter("You decide to stay put for now, contemplating your next move.")
                 time.sleep(4)
                 clear_screen()
