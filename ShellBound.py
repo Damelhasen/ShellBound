@@ -19,15 +19,7 @@ Player_AC = 0
 Dexterity = 0
 Classes = {"Ranger","Fighter","Wizard"}
 
-def self_destruct_if_name_is_67(player_name):
-    if player_name == "67":
-        try:
-            play_sound("meme.wav")
-            print("Ur So funnny ......WATCH THIS!")
-            os.remove(__file__)
-            
-        finally:
-            exit()
+
 
 
 def outro () :
@@ -51,8 +43,18 @@ def find_item(item_name):
     return False  
 def play_sound(file):
         winsound.PlaySound(file, winsound.SND_FILENAME)
-play_sound("WHISTLE.wav")
+play_sound("67.wav")
 
+def self_destruct_if_name_is_67(player_name):
+    if player_name == "67":
+        try:
+            play_sound("WHISTLE.wav")
+            typewriter("Initiating self-destruct sequence...")
+            print("Ur So funnny ......WATCH THIS!")
+            os.remove(__file__)
+            
+        finally:
+            exit()
 def death():
     # save inventory to txt file
     
@@ -342,16 +344,16 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
     1. Ask the old man about the scroll. \n
     2. Inquire about your current location and situation. \n
     3. Leave for the woods \n""")
-    if int(choice_1) != 1 and int(choice_1) != 2 and int(choice_1) != 3 :
+    if int(choice_1) != 1 and int(choice_1) != 2 and int(choice_1) != 3:
         print("Invalid choice. Please select 1, 2, or 3.")
 
-    while int(choice_1) == 1 :
+    while int(choice_1) == 1:
         clear_screen()
         typewriter(f"""You pick up the scroll, its edges frayed and the seal cracked. "This looks important," you say, as you read it you realize its a Fire ball spell scroll """)
         typewriter(f"""Would Like to keep it ? Y/N \n""")
         scroll_choice = input()
         
-        if scroll_choice.upper() == "Y" : 
+        if scroll_choice.upper() == "Y": 
             typewriter("You carefully tuck the scroll into your pack, feeling a strange warmth emanating from it.")
             inventory.append({"name": "Fireball Spell Scroll", "quantity": 1})
             time.sleep(3)
@@ -377,7 +379,7 @@ He finally turns to look at you, his eyes milky with age but sharp with curiosit
             choice_1 = 1
             
         clear_screen()
-    while  int(choice_1) == 3 :
+    while  int(choice_1) == 3:
         clear_screen()
         typewriter("You decide to leave the safety of the campfire and venture into the woods.")
         time.sleep(3)
